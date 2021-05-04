@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #___gatsby, #gatsby-focus-wrapper {
+  @apply h-full text-gray-700;
+}
+
+/* Heading */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold my-4 text-gray-700;
+}
+
+h1 {
+  @apply text-3xl
+}
+
+h2 {
+  @apply text-2xl
+}
+
+h3 {
+  @apply text-xl
+}
+
+h4 {
+  @apply text-lg
+}
+
+h5 {
+  @apply text-base
+}
+
+h6 {
+  @apply text-xs
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+  @apply no-underline;
+  color: inherit;
+}
+
+/* Prose */
+
+p {
+  @apply leading-relaxed mb-4 p-0;
+}
+
+ul,
+ol {
+  @apply list-outside ml-4 mb-2;
+}
+
+ol {
+  @apply list-decimal
+}
+
+ul {
+  @apply list-disc
+}
+
+ul li,
+ol li {
+  @apply mb-2
+}
+
+li > p {
+  @apply mb-2
+}
+
+li *:last-child {
+  @apply mb-0
+}
+
+blockquote {
+  @apply border-l border-blue-600 pl-6 mb-6;
+  @apply text-gray-500 text-base italic;
+}
+
+blockquote > :last-child {
+  @apply mb-0
+}
+
+blockquote > ul,
+blockquote > ol {
+  @apply list-inside
+}
+
+table {
+  @apply w-full mb-8
+}
+
+table thead tr th:empty {
+  @apply hidden;
+}
+
+table thead tr th {
+  border-bottom: 1px solid var(--color-accent);
+}
+
+tr:nth-child(odd) {
+ @apply bg-gray-200
+}
+
+td, th {
+  @apply py-2 px-4;
+}
+
+/* Link */
+
+a {
+  @apply text-blue-600
+}
+
+a:hover,
+a:focus {
+  @apply underline;
+}
+
+.gatsby-highlight {
+  @apply text-sm mb-4;
+}
+
