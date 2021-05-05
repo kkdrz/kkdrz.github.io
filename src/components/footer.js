@@ -55,7 +55,7 @@ const Footer = ({ children }) => {
         style={{ backgroundColor: "#222" }}
       >
         <div className="md:w-128 py-4 px-4 m-auto">
-          Copyright Konrad Drozd ® {new Date().getFullYear()} - github actions!
+          Copyright Konrad Drozd ® {new Date().getFullYear()}
         </div>
       </div>
     </footer>
