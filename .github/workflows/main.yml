@@ -18,9 +18,21 @@ jobs:
         with:
           node-version: '15'
           
-      - name: npm install & deploy
-        run: |
-          git config --global user.name 'Konrad Drozd'
-          git config --global user.email 'drozdkonrad@gmail.com'
-          npm install
-          npm run deploy
+      - run: npm ci
+      - run: npm run build
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3.7.3
+         with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./public
+            publish_branch: main
+            cname: kdrozd.pl
