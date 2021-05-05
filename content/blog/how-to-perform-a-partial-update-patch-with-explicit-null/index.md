@@ -23,10 +23,6 @@ Below, only the necessary code snippets are presented.
 
 The appropriate HTTP verb for this task is PATCH ([RFC 5789]). The difference between PATCH and PUT ([RFC 7231 4.3.4]) is that PUT method allows only a complete replacement of an entity and with PATCH you can perform [JSON Merge Patch (RFC 7386)].
 
-```shell
-test fff
-```
-
 So, given the entity:
 
 ```java
