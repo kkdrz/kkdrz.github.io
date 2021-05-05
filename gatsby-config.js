@@ -57,6 +57,7 @@ module.exports = {
               }
             },
           },
+          `gatsby-plugin-fontawesome-css`,
           `gatsby-remark-external-links`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
