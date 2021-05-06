@@ -55,7 +55,7 @@ const Footer = ({ children }) => {
         style={{ backgroundColor: "#222" }}
       >
         <div className="md:w-128 py-4 px-4 m-auto">
-          Copyright Konrad Drozd ® {new Date().getFullYear()}
+          Copyright © 2020-{new Date().getFullYear()} Konrad Drozd. All rights reserved.
         </div>
       </div>
     </footer>
