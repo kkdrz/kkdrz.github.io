@@ -54,7 +54,7 @@ module.exports = {
                 user: "konrad",
                 host: "kkdrz",
                 global: true,
-              }
+              },
             },
           },
           `gatsby-plugin-fontawesome-css`,
@@ -64,9 +64,19 @@ module.exports = {
         ],
       },
     },
-
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        output: '/',
+        serialize: ({ path }) => {
+          return {
+            url: path,
+          }
+        },
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {
@@ -138,6 +148,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-gatsby-cloud`
+    `gatsby-plugin-gatsby-cloud`,
   ],
 }
