@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import {
   faFacebookSquare,
   faGithubSquare,
@@ -8,16 +7,16 @@ import {
 } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const Footer = ({ children }) => {
-  const SocialSquare = ({ href, icon }) => (
-    <Link
+const Footer = () => {
+  const SocialSquare = ({ href, icon, title }) => (
+    <a
       className="text-gray-100 p-2 hover:text-blue-100"
-      to={href}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
     >
-      <FontAwesomeIcon size="3x" icon={icon} />
-    </Link>
+      <FontAwesomeIcon title={title} size="3x" icon={icon} />
+    </a>
   )
 
   return (
@@ -32,18 +31,22 @@ const Footer = ({ children }) => {
           </div>
           <div>
             <SocialSquare
+              title="Facebook"
               href="https://www.facebook.com/drozdkonrad"
               icon={faFacebookSquare}
             />
             <SocialSquare
+              title="Github"
               href="https://github.com/kkdrz"
               icon={faGithubSquare}
             />
             <SocialSquare
+              title="LinkedIn"
               href="https://www.linkedin.com/in/konrad-drozd-3a1021121/"
               icon={faLinkedin}
             />
             <SocialSquare
+              title="Instagram"
               href="https://www.instagram.com/konradrzd/"
               icon={faInstagramSquare}
             />
@@ -55,7 +58,8 @@ const Footer = ({ children }) => {
         style={{ backgroundColor: "#222" }}
       >
         <div className="md:w-128 py-4 px-4 m-auto">
-          Copyright © 2020-{new Date().getFullYear()} Konrad Drozd. All rights reserved.
+          Copyright © 2020-{new Date().getFullYear()} Konrad Drozd. All rights
+          reserved.
         </div>
       </div>
     </footer>
