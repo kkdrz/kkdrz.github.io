@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Konrad Drozd: Blog]]></title><description><![CDATA[Konrad Drozd: Blog]]></description><link>https://kdrozd.pl</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 09 May 2021 18:15:21 GMT</lastBuildDate><item><title><![CDATA[I Speeded Up My Laptop By 22% Without Spending Any Money!]]></title><description><![CDATA[The purpose of this short article is to remind you how important it is to clean your electronic equipment regularly. At least I forgot about…]]></description><link>https://kdrozd.pl/i-speeded-up-my-laptop-by-22-without-spending-any-money/</link><guid isPermaLink="false">https://kdrozd.pl/i-speeded-up-my-laptop-by-22-without-spending-any-money/</guid><pubDate>Sat, 13 Feb 2021 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;The purpose of this short article is to remind you how important it is to clean your electronic equipment regularly. At least I forgot about it…&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Konrad Drozd: Blog]]></title><description><![CDATA[Konrad Drozd: Blog]]></description><link>https://kdrozd.pl</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 16 May 2021 17:04:00 GMT</lastBuildDate><item><title><![CDATA[I Migrated My Blog From Wordpress to Gatsby]]></title><description><![CDATA[In this entry, I will explain why I decided to move the blog from WordPress to Gatsby. 
+I will not describe in detail how I did it, because…]]></description><link>https://kdrozd.pl/i-migrated-my-blog-from-wordpress-to-gatsby/</link><guid isPermaLink="false">https://kdrozd.pl/i-migrated-my-blog-from-wordpress-to-gatsby/</guid><pubDate>Sun, 25 Apr 2021 16:12:37 GMT</pubDate><content:encoded>&lt;p&gt;In this entry, I will explain why I decided to move the blog from WordPress to Gatsby.
+I will not describe in detail how I did it, because there are many such guidelines in the network.
+In addition, my blog does not consist of hundreds of posts (yet) so I had a significantly easier task.&lt;/p&gt;
+&lt;h1&gt;Misfired Begginings&lt;/h1&gt;
+&lt;p&gt;This blog is not my first blogging approach.
+The first attempt took place during my studies (about 3 years ago), but I failed.
+The main reason was that I always strived for perfectionism.&lt;/p&gt;
+&lt;p&gt;I decided to do everything myself from scratch.
+I do not even remember what technological stack I chose,
+but the preparation of a template and configuration of the tools took me so much time
+that I did not even started writing posts.
+Then came examinations in college and after them I have already forgotten about my unsuccessful project.
+And to be honest, I did not really want to remember because I was too tired of it.
+I waited for visible effects for too long.&lt;/p&gt;
+&lt;h1&gt;Second Attempt&lt;/h1&gt;
+&lt;p&gt;When I decided to create my place on the web again, I chose completely different approach.
+I launched a website in the easiest way I knew: &lt;a href=&quot;https://wordpress.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Wordpress&lt;/a&gt;.
+I found a template (&lt;a href=&quot;https://wordpress.org/themes/awaken/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Awaken&lt;/a&gt;) that more or less met my requirements
+and the next day after I set everything up, I was ready to start writing posts.&lt;/p&gt;
+&lt;p&gt;Everything went well as long as I did not mind adjusting the template to myself.
+Introducing changes in the code of the template did not give me any pleasure.
+I have never used PHP and I did not have the slightest desire to learn it.
+Probably it would not be useful to me anywhere else.&lt;/p&gt;
+&lt;p&gt;Using Wordpress was overwhelming.
+I didn’t quite know what was happening in my application.
+It was hard to create my own functionalities and at the same time I had to worry a lot about security and backups.
+Not a day goes by without someone trying to bruteforce my site or scan it for vulnerabilities.&lt;/p&gt;
+&lt;h1&gt;From scratch again!&lt;/h1&gt;
+&lt;p&gt;I started thinking about creating my website from scratch again.
+This time, however, I decided to use a technology that I already knew at least partially
+and which will be useful in my professional career.
+I also wanted to host my website for free (or pay for it as little as possible).
+That’s why I decided to follow the path of statically generated sites.
+&lt;a href=&quot;https://jamstack.org/generators/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;The list of static site generators&lt;/a&gt; is long,
+but after playing a little bit with the most popular ones I decided to go with &lt;a href=&quot;https://www.gatsbyjs.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Gatsby&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The main reason why I chose it was the fact that it is based on &lt;a href=&quot;https://reactjs.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;React&lt;/a&gt;.
+I noticed a large demand for React programmers
+(even in a company where I currently work, where we do not have many purely web projects)
+and that’s why I want to practice it a little.&lt;/p&gt;
+&lt;h1&gt;Final feelings&lt;/h1&gt;
+&lt;p&gt;Was this a good idea? Definitely!
+Currently, the blog is not fully developed yet,
+but I already feel &lt;strong&gt;a huge improvement in the speed and ease of delivering new functionalities&lt;/strong&gt;.
+I’m only limited by my imagination ;)&lt;/p&gt;
+&lt;p&gt;Finally &lt;strong&gt;extending my blog functionalities became a pleasure for me&lt;/strong&gt;.
+I have always been a fan of generators and WYMIWYG (&lt;em&gt;What You Mean Is What You Get&lt;/em&gt;) editors.
+During my studies, I preferred to write all my theses and reports in &lt;a href=&quot;https://www.latex-project.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;LaTeX&lt;/a&gt; instead of MS Word.
+It seems to me that the same is the case with the creation of my blog.&lt;/p&gt;
+&lt;p&gt;Another advantage is that &lt;strong&gt;I don’t have to pay for anything else than the domain&lt;/strong&gt;.
+The blog is hosted on &lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Github Pages&lt;/a&gt;.
+Even if one day this service stops working or is no longer free,
+there are tons of other places that allow you to host static pages for free.
+Migration is limited to uploading files and changing the IP address in the domain configuration.&lt;/p&gt;
+&lt;p&gt;Since my blog now consists of regular static files, &lt;strong&gt;the performance of the site is much better&lt;/strong&gt;
+and &lt;strong&gt;I don’t have to worry too much about security issues&lt;/strong&gt;.
+&lt;strong&gt;All my posts are written in markdown&lt;/strong&gt;, so if I decided to use a different tool in the future, another migration would not be a problem.
+The posts are likely to be untouched.&lt;/p&gt;
+&lt;p&gt;The last important advantage for me is &lt;strong&gt;no need to have a backup copy or website versioning&lt;/strong&gt;.
+I don’t have to worry about it, because all the code needed to generate the blog is versioned on Github and on my computer.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[I Speeded Up My Laptop By 22% Without Spending Any Money!]]></title><description><![CDATA[The purpose of this short article is to remind you how important it is to clean your electronic equipment regularly. At least I forgot about…]]></description><link>https://kdrozd.pl/i-speeded-up-my-laptop-by-22-without-spending-any-money/</link><guid isPermaLink="false">https://kdrozd.pl/i-speeded-up-my-laptop-by-22-without-spending-any-money/</guid><pubDate>Sat, 13 Feb 2021 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;The purpose of this short article is to remind you how important it is to clean your electronic equipment regularly. At least I forgot about it…&lt;/p&gt;
 &lt;p&gt;5 years ago I bought a laptop for a college. I cleaned it from the outside at least once a week, but inside… I think I only cleaned it once while installing the SSD drive (about 3 years ago). Then I found a job and started doing most of the things on my work computer. I hardly play games (at most once a month), so I started using my laptop so rarely that I didn’t notice high temperatures and performance drop.&lt;/p&gt;
 &lt;p&gt;Recently I was &lt;a href=&quot;/making-the-best-of-an-old-crappy-computer&quot;&gt;improving my parents’ computer&lt;/a&gt; and I thought that since I bought a thermal compound, I will also replace it on my laptop. But it wasn’t the paste that was the game changer!&lt;/p&gt;
 &lt;h2&gt;Objective&lt;/h2&gt;
