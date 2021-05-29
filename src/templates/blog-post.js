@@ -41,12 +41,8 @@ const BlogPostTemplate = ({ data, location }) => {
             {post.frontmatter.title}
           </h1>
           <p className="mb-2 text-sm text-gray-600 leading-tight font-medium flex">
-            <div className="pr-2 mr-2 border-r border-black">Konrad Drozd</div>
-            <FontAwesomeIcon
-              className="pr-1 "
-              size="lg"
-              icon={faCalendarAlt}
-            ></FontAwesomeIcon>
+            <span className="pr-2 mr-2 border-r border-black">Konrad Drozd</span>
+            <FontAwesomeIcon className="pr-1 " size="lg" icon={faCalendarAlt} />
             {post.frontmatter.date}
           </p>
           {frontImg}
