@@ -1,7 +1,7 @@
 ---
 title: SIP proxy server with Netty and SipStack
 date: "2021-06-15T11:23:32"
-featuredImage: "./featured.png"
+featuredImage: "./featured.jpg"
 ---
 
 [netty]: https://netty.io/
