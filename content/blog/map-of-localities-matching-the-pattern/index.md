@@ -216,6 +216,10 @@ If you want to learn regular expressions (which I really recommend) check out th
 
 As you can see my girlfriend was right :)
 
+#### How to check locality name?
+
+Just click the dot that interests you and the name of the locality will appear in the top-right corner ;)
+
 ## Summary
 
 In this post I more or less described the process of creating my simple application for marking localities matching a pattern on a map.
