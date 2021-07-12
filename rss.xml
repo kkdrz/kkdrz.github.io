@@ -1,4 +1,282 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Konrad Drozd: Blog]]></title><description><![CDATA[Konrad Drozd: Blog]]></description><link>https://kdrozd.pl</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 03 Jul 2021 15:21:56 GMT</lastBuildDate><item><title><![CDATA[SIP proxy server with Netty and SipStack]]></title><description><![CDATA[In this post I will show you how to make a simple proxy server for SIP protocol.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Konrad Drozd: Blog]]></title><description><![CDATA[Konrad Drozd: Blog]]></description><link>https://kdrozd.pl</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 12 Jul 2021 18:09:21 GMT</lastBuildDate><item><title><![CDATA[A Map of Localities Matching the Pattern]]></title><description><![CDATA[Recently, interesting maps of Poland have been circulating on the Internet showing the occurrence of localities ending with various phrases…]]></description><link>https://kdrozd.pl/map-of-localities-matching-the-pattern/</link><guid isPermaLink="false">https://kdrozd.pl/map-of-localities-matching-the-pattern/</guid><pubDate>Sun, 11 Jul 2021 21:12:11 GMT</pubDate><content:encoded>&lt;p&gt;Recently, interesting maps of Poland have been circulating on the Internet showing the occurrence of localities ending with various phrases (I have placed it below).
+It inspired me to make a simple application that is able to generate such maps based on a given pattern.&lt;/p&gt;
+&lt;p&gt;If you want to go directly to the meat you can find the code &lt;a href=&quot;https://github.com/kkdrz/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;on my github&lt;/a&gt; and the application is avaialble at &lt;a href=&quot;https://kdrozd.pl/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;kdrozd.pl/matching-localities-map&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/9f6b9b893d41e75d5b23870946aaa4ca/e88f6/original_map.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 119.62025316455697%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAYABQDASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAAAAECAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB6VomTdBc9RbA/8QAGxAAAgIDAQAAAAAAAAAAAAAAARECEgADEzL/2gAIAQEAAQUC6Q6WBECwp9Rda/KWx5YZ/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEQ/9oACAEDAQE/AciP/8QAFBEBAAAAAAAAAAAAAAAAAAAAIP/aAAgBAgEBPwEf/8QAHBAAAgICAwAAAAAAAAAAAAAAABEBIRAxEkFh/9oACAEBAAY/AuHZOHK8olxZobo3j//EAB0QAAMBAAIDAQAAAAAAAAAAAAABESExYUFRcZH/2gAIAQEAAT8ho1PoJgSeCMcFWifLl+nGnwhm9RvqFAoo7D//2gAMAwEAAgADAAAAEPcog//EABcRAAMBAAAAAAAAAAAAAAAAAAABERD/2gAIAQMBAT8QrxIQf//EABcRAQADAAAAAAAAAAAAAAAAAAABEBH/2gAIAQIBAT8QRWv/xAAbEAEBAQEAAwEAAAAAAAAAAAABESEAMVFxof/aAAgBAQABPxAHAK5fXNTs4s6xDqa9ZvsDImcYq4Jjd/ev3dZwKwbVNvzmhGVvhziG6+Pf/9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;The original map&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/9f6b9b893d41e75d5b23870946aaa4ca/828fb/original_map.jpg&quot;
+        srcset=&quot;/static/9f6b9b893d41e75d5b23870946aaa4ca/ff44c/original_map.jpg 158w,
+/static/9f6b9b893d41e75d5b23870946aaa4ca/a6688/original_map.jpg 315w,
+/static/9f6b9b893d41e75d5b23870946aaa4ca/828fb/original_map.jpg 630w,
+/static/9f6b9b893d41e75d5b23870946aaa4ca/0ede0/original_map.jpg 945w,
+/static/9f6b9b893d41e75d5b23870946aaa4ca/3ac88/original_map.jpg 1260w,
+/static/9f6b9b893d41e75d5b23870946aaa4ca/e88f6/original_map.jpg 1712w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Planning&lt;/h2&gt;
+&lt;p&gt;I thought for a long time whether to make a serious frontend and backend project out of it, but in the end I came to the conclusion that it didn’t make sense.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;I wanted to &lt;strong&gt;do it as quickly as possible&lt;/strong&gt; to catch the current interest of people in this topic.&lt;/li&gt;
+&lt;li&gt;This app is meant to be just &lt;strong&gt;an interesting toy&lt;/strong&gt; and I don’t expect anyone to use it for more than 5 minutes.&lt;/li&gt;
+&lt;li&gt;I wanted to &lt;strong&gt;deploy it for free&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That’s why I decided that it will be an application written in &lt;strong&gt;React&lt;/strong&gt; that processes data &lt;strong&gt;on the client’s side&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2&gt;The data&lt;/h2&gt;
+&lt;p&gt;So without over-engineering, I started by searching for the data.
+I needed the localities names and their coordinates.&lt;/p&gt;
+&lt;h3&gt;How about Google?&lt;/h3&gt;
+&lt;p&gt;At the beginning I thought to base this project on Google Maps Platform,
+but from what I understood they are not free and I think I couldn’t get that much data from them.
+I would prefer to have all the data in a file, instead of sending Google Maps queries on the fly
+and &lt;a href=&quot;https://cloud.google.com/maps-platform/terms/#3.-license.&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;the terms of the Google Maps service&lt;/a&gt; prohibit such practices.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;3.2.3 Restrictions Against Misusing the Services.&lt;/p&gt;
+&lt;p&gt;(a) No Scraping.
+[…]&lt;/p&gt;
+&lt;p&gt;(b) No Caching.
+[…]&lt;/p&gt;
+&lt;p&gt;(c) No Creating Content From Google Maps Content
+[…]&lt;/p&gt;
+&lt;p&gt;(e) No Use With Non-Google Maps
+[…]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;On the original maps, I noticed a note from where the author took the data and it turned out to be the best source.
+On the &lt;a href=&quot;https://www.geoportal.gov.pl/dane/panstwowy-rejestr-nazw-geograficznych&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;National Register of Geographical Names&lt;/a&gt; website I found an &lt;code class=&quot;language-text&quot;&gt;xlsx&lt;/code&gt; file from which I exported three columns to a JSON file: &lt;code class=&quot;language-text&quot;&gt;locality name&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;longitude&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;latitude&lt;/code&gt;. The NRGN regulations state that this data is publicly available, not limited by any restrictions.&lt;/p&gt;
+&lt;p&gt;So I got something like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-json line-numbers&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Adamek&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;51.0708333333333&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;Y&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;20.5063888888889&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Adamierz&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;52.1525&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;Y&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;17.7952777777778&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Adamin&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;52.1636111111111&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;Y&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;18.835&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Adaminowo&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;52.595&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;Y&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;19.2719444444444&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Adaminów&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;51.5766666666667&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;Y&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;21.1330555555556&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Adamka&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;53.1483333333333&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;Y&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;21.6527777777778&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;//   ...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Map component library&lt;/h2&gt;
+&lt;p&gt;As for the map display component, I didn’t search long.
+One of the first libraries I found was &lt;a href=&quot;https://github.com/zcreativelabs/react-simple-maps&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;react-simple-maps&lt;/a&gt; and it met all my requirements.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It can only display part of the whole world (Poland).&lt;/li&gt;
+&lt;li&gt;You can put markers on it.&lt;/li&gt;
+&lt;li&gt;It’s opensource (MIT license).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In order to use this library I had to find a file describing the shape of Poland (shapefile).
+I found a suggestion from the authors of the library to use the data from &lt;a href=&quot;https://gadm.org/download_country_v3.html&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;the GADM site&lt;/a&gt;.
+Their map models are freely available for academic use and other non-commercial use.&lt;/p&gt;
+&lt;p&gt;All I had to do was convert the map data to TopoJSON format.
+To do this I used the online service - &lt;a href=&quot;https://mapshaper.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;mapshaper&lt;/a&gt;.
+You can find a detailed tutorial &lt;a href=&quot;https://hackernoon.com/how-to-convert-and-prepare-topojson-files-for-interactive-mapping-with-d3-499cf0ced5f&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Putting it all together&lt;/h2&gt;
+&lt;p&gt;I started creating the application with &lt;a href=&quot;https://github.com/facebook/create-react-app&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;create-react-app&lt;/a&gt;, added libraries and implemented the whole thing.
+It makes no sense for me to describe it in detail because it is very simple.&lt;/p&gt;
+&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/kkdrz/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;on my github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The last step was to automate the deployment. For this I used GitHub Actions.
+The workflow looks like this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-yaml line-numbers&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy
+
+&lt;span class=&quot;token key atrule&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# Run the workflow on each push to &apos;master&apos; branch&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; master &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Allows to run this workflow manually from the Actions tab&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;workflow_dispatch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+
+&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ubuntu&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;latest
+    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      
+    &lt;span class=&quot;token comment&quot;&gt;# checkout the code&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/checkout@v2
+      
+    &lt;span class=&quot;token comment&quot;&gt;# install nodejs&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/setup&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;node@v2
+        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;node-version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;15&apos;&lt;/span&gt;
+          
+    &lt;span class=&quot;token comment&quot;&gt;# npm clean install&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; npm ci
+
+    &lt;span class=&quot;token comment&quot;&gt;# generate the static sources&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; npm run build
+
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Cache dependencies
+        &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; actions/cache@v2
+        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ~/.npm
+          &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; runner.os &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;node&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; hashFiles(&apos;&lt;span class=&quot;token important&quot;&gt;**/package-lock.json&apos;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;restore-keys&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+            ${{ runner.os }}-node-&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# push the sources from &apos;./build&apos; directory to &apos;gh-pages&apos; branch &lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy
+        &lt;span class=&quot;token key atrule&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; peaceiris/actions&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages@v3.7.3
+        &lt;span class=&quot;token key atrule&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;github_token&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; secrets.GITHUB_TOKEN &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;publish_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ./build
+          &lt;span class=&quot;token key atrule&quot;&gt;publish_branch&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; gh&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;pages&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Thanks to this, after each push, the latest version of the app is always available at: &lt;a href=&quot;kkdrz.github.io/matching-localities-map&quot;&gt;kkdrz.github.io/matching-localities-map&lt;/a&gt;.
+GitHub Pages allows you to link your own domain. This is exactly how my entire blog works.
+Everything you see is hosted by GitHub (for free).
+As a result of this configuration, the application is also immediately available at: &lt;a href=&quot;kdrozd.pl/matching-localities-map&quot;&gt;kdrozd.pl/matching-localities-map&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If I got you interested in GitHub Pages, &lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;check it out here&lt;/a&gt;. It’s truly awesome!&lt;/p&gt;
+&lt;h2&gt;Some examples from the app&lt;/h2&gt;
+&lt;p&gt;Let’s try to regenerate some of the maps that inspired me to create this application.&lt;/p&gt;
+&lt;h3&gt;ów vs. owo&lt;/h3&gt;
+&lt;p&gt;It was clear on the original map that locations ending with &lt;code class=&quot;language-text&quot;&gt;-owo&lt;/code&gt; are in the northern part of the country and those ending with &lt;code class=&quot;language-text&quot;&gt;-ów&lt;/code&gt; in the southern part.
+To check it in my application, it is not enough to enter patterns &lt;code class=&quot;language-text&quot;&gt;owo&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;ów&lt;/code&gt;, because then it will also find places, not only ending with these, but also containing them in the middle, e.g. &lt;em&gt;Biał&lt;strong&gt;OWO&lt;/strong&gt;da&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;We need to apply a regular expressions: &lt;code class=&quot;language-text&quot;&gt;ów$&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;owo$&lt;/code&gt;. &lt;code class=&quot;language-text&quot;&gt;$&lt;/code&gt; means the end of a line.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/770c50151e93edaaeb81275731c9e7ff/774b6/ending-with-owo.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 72.78481012658227%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsTAAALEwEAmpwYAAACf0lEQVQ4y32T32vTUBTH+6cJik8+iG+OIf6Y4IMyf8z5aw+KbpOhoI7iQIZKQcZEh8wXUSaKjjFYaxHb5se9SdukSZata9P8aJsmX8mtrU3RHThc7sm9n/s9OeckMGRhGMb2qqKA43gIggBJkvc9G1li4Gv/gOd5UMpl5hKlDMZxHHK5HDRNg6qqcF23Dx0EJ3qBKBQGAQM7dgNULoJqBkpqBeViEaVSCVQUIEsSe8Sx7RiwB02EQ/L7b3kOkE8DVQP7Wu9etIZhN+U+zNpDUMii+foZ6rOX0LhwDO7cBJyNz3DepeB+eIP2x7fwNr/C3lpHWxbiYiJgGAZs09RVNB5chzMxgtq9cewuzMK6fxnV+TtoXDsB69YY7KujsKbOwnjxGLtzkzCXFxG02zFogv03AC1FZqDa/G0YKylUF2bQOn8U1sxFOFNj8CZH4V05jp3nj7CTSsJ6eAN6Kol6ZqMLDIKewi7Z91zo39dQWV3CXvIu3MlR+KcOwj9zCP7YYXgTI2idOwLn5mlsv1qAsbwI8+UT1H+mY8VJ9OiRVZUiSp/eY+/pNDonD8CaHmeX9ZUU5B9bKH9bQ2n9C2juFwjPsZhdr8WBgyV3LAs0m2YHzVQS2uoSBFWDKMkQCYFIKWghz2Ak6s9CHhoVhxXG+0jXNAgigcgVQLMZEJ5n/UdE8Y8LLEYIARF4ptau1QarHGLYm44NVaKQi0UQQYDAFboASQIhYtcpZTGe42Ca5l/g/2bTb7XQ6XRgW3VUFAUkm4GU3mSrwHEQeJ5lsbO9/Y+iDKQ8PJs9swwdJp9Dhc/DMHToWgWSJMH3O/E+HFY4DI7FBkczGoZmE77vxxT+BjggUFT0QR3bAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Localities ending with -owo&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/770c50151e93edaaeb81275731c9e7ff/f058b/ending-with-owo.png&quot;
+        srcset=&quot;/static/770c50151e93edaaeb81275731c9e7ff/c26ae/ending-with-owo.png 158w,
+/static/770c50151e93edaaeb81275731c9e7ff/6bdcf/ending-with-owo.png 315w,
+/static/770c50151e93edaaeb81275731c9e7ff/f058b/ending-with-owo.png 630w,
+/static/770c50151e93edaaeb81275731c9e7ff/774b6/ending-with-owo.png 738w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a8c22547d5a4358c996074a660563f7f/774b6/ending-with-ow.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 72.78481012658227%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsTAAALEwEAmpwYAAACl0lEQVQ4y4WU20sUcRTH9z+TiqLoQXqoKOgiWhoVKBtEKOlDpA9ZKUE9qKyPiSEhKUlmiIWipanrLM59ndmZvc7u7GXWncs35jczu+pGHfjxY36Xz/me8ztnQjhhjuMc++Y4DizLIhaLIadp/zzrWujoZnCgWCxCFEVIkkRmFxajKAJWFAWynIBlWU33CJAsnNjIaxpomoYgilBVFTzPIx6PE7XuEAQRpmkeAwZ3Q/4qmsUDNaOC/1kACkTWFborllFBJa9BZfbBxCjQ66tQeA6ZVApJWUI2ISOXSUNLKtCkOA6r1QbUVxkKPOjyAcTNdXBbP8Fub4F3x94uATPRXTC722CiO6CpPc/Z9hZkgW/KY8hxbA/I0xCWPuNgbYWA+J3f4KgoWJomj8GyDHgqCo7eByuK4BiaONL9l3dOKqwmE0h9iCC+ugwuRoGl98GIcXDUHoTNDchfZiFsrEJa/ITE3DSkr3PEsa7rzcB62DOTUKbGwbshsizSk6OoPL6B6sNLMNtOw+i5ilrHORiPrkN71Yfs+zFYafUvQNsLu7o8j0J/F/ShMJJTE+Si0X2ZwMzbp1C7cx7WrRYcPmhFpbcduaEwyr9+eEC/LkNeDXpAO5dGMfIa5e4rREnheQ8Kw08I2IWZbWdQ67wAs/0sSv2dKPV1oDzYA0s58FXafg6DsG0bjmnC3vyO6tO7KL4ZQObdIHIj/SgN3EOt6yKsmy1kzo69QHI6guzoAMy1JQ9o2wgdLeqjLWRnVDh6HrWVBZTePkP2ZS/K4Wsw7rcSSGp8GOnICEoptQ5zgk5pVLvfRn5O692QTaK2+BH5hRkUpydQWF9BbnEWmW/zqHeal7vGz6EZbHuzZTXa0jKPOTIMA7bvPHjlPw8yReK0izhOAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Localities ending with -ów&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/a8c22547d5a4358c996074a660563f7f/f058b/ending-with-ow.png&quot;
+        srcset=&quot;/static/a8c22547d5a4358c996074a660563f7f/c26ae/ending-with-ow.png 158w,
+/static/a8c22547d5a4358c996074a660563f7f/6bdcf/ending-with-ow.png 315w,
+/static/a8c22547d5a4358c996074a660563f7f/f058b/ending-with-ow.png 630w,
+/static/a8c22547d5a4358c996074a660563f7f/774b6/ending-with-ow.png 738w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As you can see, it turned out the same in my application (strange to find out otherwise, since it is based on the same data).&lt;/p&gt;
+&lt;h3&gt;kolonia &amp;#x26; wola &amp;#x26; wólka&lt;/h3&gt;
+&lt;p&gt;When I invited my girlfriend to my hometown (eastern part of Poland), she was surprised that many places contain the words: &lt;code class=&quot;language-text&quot;&gt;kolonia&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;wola&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;wólka&lt;/code&gt;.
+Some examples are: &lt;code class=&quot;language-text&quot;&gt;Nowa Wola&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;Wólka Rokicka&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;Kolonia Ciechanki&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;Wola Uhruska&lt;/code&gt;…&lt;/p&gt;
+&lt;p&gt;Let’s check if there are actually more such localities in the east.
+To do this, we will use the regular expression again.
+This time it looks like this: &lt;code class=&quot;language-text&quot;&gt;(kolonia|wola|wólka)&lt;/code&gt;, which literally means: the name contains &lt;code class=&quot;language-text&quot;&gt;kolonia&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;wola&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;wólka&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If we would like to find places that &lt;strong&gt;start with these words&lt;/strong&gt;, a small modification is enough: &lt;code class=&quot;language-text&quot;&gt;^(kolonia|wola|wólka)&lt;/code&gt;.
+&lt;code class=&quot;language-text&quot;&gt;^&lt;/code&gt; means start of the line.&lt;/p&gt;
+&lt;p&gt;If you want to learn regular expressions (which I really recommend) check out this page: &lt;a href=&quot;https://regexr.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;regexr.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/832fff555510731702cae508c4340933/774b6/contains-kolonia-wola-w%C3%B3lka.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 72.78481012658227%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsTAAALEwEAmpwYAAACt0lEQVQ4y4WT+0sUURTH97/qtyAogn4zCnrRg5CCCgstsgeSZWWo0cuSLAIpyJQC05LIUKwt3XR33Ueyj5mdfenqjuvuzLTtzuwnnHW3UYsuXA73nns+nPs959iwrFKpZNpisUAgECAsCASDQUQxgs/nQxQEBFEkIkkYhrEmprJsFlrVmctlcbtcuN0z+P1+vF4vXo/HtJ5VWyzqVaAVaqtcWB3LmQxCJIIoSSSTSaRIhHg0SigYQBJFM9NCobCC2xBrq8DXp86vPIaS43+rElcFWg9GqURxPk7G+Y3Y6DAB53dSnmlyQgBlbBjNNUHe40AL+MjGJQqaugFqqxwUOU1q8BXpJ+2knt5GnLQTCgUJzzgRx0fMO6VhH0r9Xha6Wkn0dCK/7y+DrBladYsO9JJ820t85B3SxBfEqQnCfh+Sw07iwwCZu03Ij2+RHOond+MM2skaNL+zDDWMtRlqmkbMPkr08yfCP3wIbieie5rEUB9y5zXm3jxn6d4VFrvbkB9dR7lci3rhCKp7ck21bdYKpWZ9iPYxwrM/CHtnkOyjZFvqyJ/eReb2JdJdN8m0N6Kd3c+vYztQm0+gx4R/A5fnEoRWMptxEvn+DdHpMCHFw1tQmo6jnT9EoXY7Pxv2oh/dilq3i/zQyzJQ100t11S5pCnMTU8gfB039RNcUySG37D04CrauQNkb9Yjd7aQP1WDfnAzxp5NFOt2Ykihqo5/GtvsGwNdL6IuzJMc/0jU6UAa/UB8qM+EZlvPstzeSP70btJPO0wZfh7dhjH4olxpQ183epaGLeSy6KpCLjyL/LqHuZ4HpB9eR+64yOL9Zha621h4dgd1cqzaNqaGVUEt87x+agxNQY5JxGIx5r+OsehysDTYy/zHt+Y3N0zK38aoulcDWP1S5bTyUlVVdNO/8rY8Kb8BseFBvSavTlcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Localities containing kolonia or wola or wólka&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/832fff555510731702cae508c4340933/f058b/contains-kolonia-wola-w%C3%B3lka.png&quot;
+        srcset=&quot;/static/832fff555510731702cae508c4340933/c26ae/contains-kolonia-wola-w%C3%B3lka.png 158w,
+/static/832fff555510731702cae508c4340933/6bdcf/contains-kolonia-wola-w%C3%B3lka.png 315w,
+/static/832fff555510731702cae508c4340933/f058b/contains-kolonia-wola-w%C3%B3lka.png 630w,
+/static/832fff555510731702cae508c4340933/774b6/contains-kolonia-wola-w%C3%B3lka.png 738w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As you can see my girlfriend was right :)&lt;/p&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;In this post I more or less described the process of creating my simple application for marking localities matching a pattern on a map.
+I realize that the application is not super beautiful and you could improve it and add a lot of new features to it, but this version is enough for me.&lt;/p&gt;
+&lt;p&gt;Feel free to fork it and modify it to your liking. I would love to see your version and some interesting maps! ;)&lt;/p&gt;
+&lt;p&gt;I remind you once again that the code is available &lt;a href=&quot;https://github.com/kkdrz/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;on github&lt;/a&gt; and the application is deployed at &lt;a href=&quot;https://kdrozd.pl/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;kdrozd.pl/matching-localities-map&lt;/a&gt;.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[SIP proxy server with Netty and SipStack]]></title><description><![CDATA[In this post I will show you how to make a simple proxy server for SIP protocol.
 Recently I spent some time with netty and decided to create…]]></description><link>https://kdrozd.pl/sip-proxy-with-netty-and-sipstack/</link><guid isPermaLink="false">https://kdrozd.pl/sip-proxy-with-netty-and-sipstack/</guid><pubDate>Tue, 15 Jun 2021 11:23:32 GMT</pubDate><content:encoded>&lt;p&gt;In this post I will show you how to make a simple proxy server for SIP protocol.
 Recently I spent some time with &lt;a href=&quot;https://netty.io/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;netty&lt;/a&gt; and decided to create some simple application to solidify my knowledge.
 I will use the &lt;a href=&quot;https://www.sipstack.io/getstarted/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;sipstack&lt;/a&gt; library as a support for the SIP protocol (decoding, encoding…).
