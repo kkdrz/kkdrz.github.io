@@ -69,7 +69,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sitemap",
       options: {
-        output: '/',
+        output: "/",
         serialize: ({ path }) => {
           return {
             url: path,
@@ -145,6 +145,14 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [
+          "UA-184638286-1", 
+        ],
       },
     },
     `gatsby-plugin-react-helmet`,
