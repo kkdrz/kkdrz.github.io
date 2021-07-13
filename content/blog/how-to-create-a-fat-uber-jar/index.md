@@ -2,7 +2,6 @@
 title: How to Create a Fat/Uber JAR in Three Ways?
 date: "2020-11-29T23:46:37.121Z"
 featuredImage: "./featured.jpeg"
-assets: /assets/images/posts/1
 
 ---
 In today's post, I'd like to show you three ways to build an executable JAR file and prove that you don't need to be a magician to create such a file. The reason for this is that the JAR is nothing more than a ZIP file with proper structure, and the extension changed to `.jar`. Actually, you don't even really need to change the extension to `.jar`.
@@ -27,7 +26,7 @@ The application will provide a command-line-interface in which you can enter som
 
 Let's create some simple model class:
 
-{% highlight java %}
+```java
 package com.company.model;
 
 public class Client {
@@ -54,11 +53,11 @@ public class Client {
         return email;
     }
 }
-{% endhighlight %}
+```
 
 and our main method:
 
-{% highlight java %}
+```java
 package com.company;
 
 import com.company.model.Client;
@@ -101,7 +100,7 @@ public class Main {
         mapper.writeValue(outputFile, client);
     }
 }
-{% endhighlight %}
+```
 
 Now, our IDE is so smart that it allows to run this code straight from the IDE, but let's try to build executable JAR.
 
@@ -111,59 +110,56 @@ In this case, we can close our IDE and do everything from the terminal. First, w
 
 In our case the only dependency that we have used is [jackson-databind]. In the [mvnrepository.com][mvn-repo] we can see that it needs two other libraries to compile: [jackson-annotations] and [jackson-core]. Luckily, none of them depend on any more libraries. <figure class="wp-block-image size-large is-resized">
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/jackson-deps.png" />
-</div>
-<figcaption>jackson-databind 2.11.3 compile dependencies</figcaption>
-</figure>
+![jackson-databind 2.11.3 compile dependencies](images/jackson-deps.png "Open image")
 
 Let's put all those dependencies in a separate `libs` directory.
 
-{% highlight bash %}
+```bash
 mkdir libs
 cd libs
 wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar
 wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar
 wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar
-{% endhighlight %}
+```
 
 Now, when we have everything in place we can compile our classes. Let's create a separate `compiled` directory for the generated files. Otherwise, the files will be generated alongside the original files. Here you can see how to use the `javac` command:
 
-{% highlight bash %}
+```bash
 mkdir compiled
 javac -cp "src/:libs/*" -d compiled src/com/company/Main.java
-{% endhighlight %}
+```
 
-| `javac`                   | Reads Java class and interface definitions and compiles them into bytecode and class files.
-| `-cp`<br/>`[-classpath]`  | Specifies where to find user class files, and (optionally) annotation processors and source files.
-| `-d`<br/>`[-directory]`   | Sets the destination directory for class files. <br/>The directory must already exist because javac does not create it.
+|||
+| --------------------------|-----------------------------------------------------------|
+| `javac`                   | Reads Java class and interface definitions and compiles them into bytecode and class files.|
+| `-cp`<br/>`[-classpath]`  | Specifies where to find user class files, and (optionally) annotation processors and source files.|
+| `-d`<br/>`[-directory]`   | Sets the destination directory for class files. <br/>The directory must already exist because javac does not create it.|
 
 
 In our example, we would like to make a so-called fat/uber JAR. This means that all sources (including 3rd party) needed to run the application will be in this file. It is very convenient, but it is not without its drawbacks. If we had several applications that use the same dependencies, making a fat jar for each of them would unnecessarily duplicate those libraries. Therefore usually only application sources are packed into a JAR and external ones are linked using `classpath`.
 
 Since JAR is based on a zip, it can be unpacked in many ways, for example with `unzip`, `tar` or `jar` commands. Let's use commands below. There will be some conflicts regarding the `META-INF` directory and a `module-info.class` file, but we only care about the `com` directory. You can delete the rest.
 
-{% highlight bash %}
+```bash
 cd libs
 unzip "*.jar" -d ../compiled/
-{% endhighlight %}
+```
 
 Our `compiled` directory finally contains everything we need to create the executable fat JAR file. You can do this by running a command:
 
-{% highlight bash %}
+```bash
 cd compiled
 jar -cfe app.jar com.company.Main com/
-{% endhighlight %}
+```
 
 
 The `jar` command works the same as `zip`. The only difference is that if we give it a parameter, which is the location of the main class (`com.company.Main`), it will automatically generate a manifest. Instead of running the above command, you could create the META-INF/MANIFEST.MF file manually and just zip content of a `compiled` directory. Such a `.zip` file can also be run with the command below, even without changing the extension to `.jar`. 
 
 Now you should be able to run the application:
 
-{% highlight bash %}
+```bash
 java -jar compiled/app.jar
-{% endhighlight %}
+```
 
 
 ## Variant #2 &#8211; Build the Uber JAR With Intellij IDE Support
@@ -172,92 +168,44 @@ Generating artifacts from IDE is simple and much more convenient than doing it m
 
 All the necessary steps only require clicking on a few options. First, run the `Project Structure` window. Use top menu (`File -> Project Structure)`, or a shortcut `Ctrl + Alt + Shift + S`. 
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-0.png" />
-</div>
-<figcaption>Project Structure (File -> Project Structure)</figcaption>
-</figure>
+![Project Structure (File -> Project Structure)](images/step-0.png "Open image")
+
 
 IntelliJ will usually detect the java module itself, but if it doesn't, go to the `Modules` tab and add one yourself by clicking `+` and `Import Module`. Then choose the root directory of the project, in my case it is `simple_app`.
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-1.png" />
-</div>
-<figcaption>Import an existing module</figcaption>
-</figure>
+![Import an existing module](images/step-1.png "Open image")
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-3.png" />
-</div>
-<figcaption>Choose the root directory of the project</figcaption>
-</figure>
+![Choose the root directory of the project](images/step-3.png "Open image")
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-4.png" />
-</div>
-<figcaption>IDE detects the source code and asks if it should be included in the module (yes)</figcaption>
-</figure>
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-5.png" />
-</div>
-<figcaption>IDE detects our libraries and asks if they should be included in the module (yes)</figcaption>
-</figure>
+![IDE detects the source code and asks if it should be included in the module (yes)](images/step-4.png "Open image")
+
+![IDE detects our libraries and asks if they should be included in the module (yes)](images/step-5.png "Open image")
 
 Then go to the `Artifacts` tab and create a new JAR artifact (empty) and set its name.
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-6.png" />
-</div>
-<figcaption>Click <code>+</code> -> <code>JAR</code> -> <code>Empty</code></figcaption>
-</figure>
+![Click '+' then 'JAR' then 'Empty'](images/step-6.png "Open image")
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-10.png" />
-</div>
-<figcaption>Click on <code>Create Manifest</code> and choose <code>./src</code> directory for <code>META-INF/MANIFEST.MF</code> file</figcaption>
-</figure>
+![Click on 'Create Manifest' and choose './src' directory for 'META-INF/MANIFEST.MF' file](images/step-10.png "Open image")
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-11.png" />
-</div>
-<figcaption>Put our application compile output to JAR</figcaption>
-</figure>
+![Put our application compile output to JAR](images/step-11.png "Open image")
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-12.png" />
-</div>
-<figcaption>Extract previously downloaded libs (jackson depenedencies) into the JAR</figcaption>
-</figure>
+![Extract previously downloaded libs (jackson depenedencies) into the JAR](images/step-12.png "Open image")
 
-<figure style="text-align: center">
-<div style="text-align: center">
-   <img src="{{page.assets}}/step-13.png" />
-</div>
-<figcaption>This is how a final artifact configuration should look like</figcaption>
-</figure>
+![This is how a final artifact configuration should look like](images/step-13.png "Open image")
 
 
 Now, build a project. You can do it by: 
 
   * running `Build -> Build Project` from the top menu
-  * using a hammer in the toolbar &#8211; <img loading="lazy" width="221" height="32" class="wp-image-82" style="width: 200px;" src="https://kdrozd.pl/wp-content/uploads/2020/11/image-14.png" alt="" /> 
+  * using a hammer in the toolbar
   * using a shortcut `Ctrl + F9`
 
 You should see a new directory, which includes our JAR. You can run it the same way as previosuly:
 
-{% highlight bash %}
+```bash
 java -jar simple_app.jar
-{% endhighlight %}
+```
 
 We obtained exactly the same effect as before, this time using the support of our IDE.
 
@@ -270,7 +218,7 @@ I will only show a configuration snippet that will allow you to generate an exec
 In the highlighted fragments it is enough to set the `Main-Class` parameter. 
 The build tool will do the rest.
 
-{% highlight gradle %}
+```java
 plugins {
     id 'java'
 }
@@ -297,10 +245,10 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
-{% endhighlight %}
+```
 
 
-{% highlight xml %}
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -352,6 +300,7 @@ jar {
         </plugins>
     </build>
 </project>
+```
 
 Of course, many other techniques and plugins can be used to create a fat JAR with Maven and Gradle, because it is just a ZIP archive. The JAR file can be created by any way that allows you to create a ZIP archive. You just need to change its extension and keep the file structure (`MANIFEST.MF`) that will be understood by Java Runtime. 
 
