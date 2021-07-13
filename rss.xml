@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Konrad Drozd: Blog]]></title><description><![CDATA[Konrad Drozd: Blog]]></description><link>https://kdrozd.pl</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 13 Jul 2021 16:36:49 GMT</lastBuildDate><item><title><![CDATA[A Map of Localities Matching the Pattern]]></title><description><![CDATA[Recently, interesting maps of Poland have been circulating on the Internet showing the occurrence of localities ending with various phrases…]]></description><link>https://kdrozd.pl/map-of-localities-matching-the-pattern/</link><guid isPermaLink="false">https://kdrozd.pl/map-of-localities-matching-the-pattern/</guid><pubDate>Sun, 11 Jul 2021 21:12:11 GMT</pubDate><content:encoded>&lt;p&gt;Recently, interesting maps of Poland have been circulating on the Internet showing the occurrence of localities ending with various phrases (I have placed it below).
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Konrad Drozd: Blog]]></title><description><![CDATA[Konrad Drozd: Blog]]></description><link>https://kdrozd.pl</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 13 Jul 2021 18:54:16 GMT</lastBuildDate><item><title><![CDATA[A Map of Localities Matching the Pattern]]></title><description><![CDATA[Recently, interesting maps of Poland have been circulating on the Internet showing the occurrence of localities ending with various phrases…]]></description><link>https://kdrozd.pl/map-of-localities-matching-the-pattern/</link><guid isPermaLink="false">https://kdrozd.pl/map-of-localities-matching-the-pattern/</guid><pubDate>Sun, 11 Jul 2021 21:12:11 GMT</pubDate><content:encoded>&lt;p&gt;Recently, interesting maps of Poland have been circulating on the Internet showing the occurrence of localities ending with various phrases (I have placed it below).
 It inspired me to make a simple application that is able to generate such maps based on a given pattern.&lt;/p&gt;
 &lt;p&gt;If you want to go directly to the meat you can find the code &lt;a href=&quot;https://github.com/kkdrz/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;on my github&lt;/a&gt; and the application is avaialble at &lt;a href=&quot;https://kdrozd.pl/matching-localities-map&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;kdrozd.pl/matching-localities-map&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;span
@@ -2029,190 +2029,459 @@ In our case this is all you would need if we didn’t use &lt;code class=&quot;l
 &lt;h2&gt;About the Application&lt;/h2&gt;
 &lt;p&gt;The application will provide a command-line-interface in which you can enter some data. This data will then be saved to a .json file. What the application does is irrelevant. The only important thing is that it needs a 3rd party to work (Jackson library). The code is available &lt;a href=&quot;https://github.com/kkdrz/fat-jar-examples&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;on GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Let’s create some simple model class:&lt;/p&gt;
-&lt;p&gt;{% highlight java %}
-package com.company.model;&lt;/p&gt;
-&lt;p&gt;public class Client {&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-text line-numbers&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;private final String name;
-private final String surname;
-private final String email;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-java line-numbers&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;com&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;company&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;model&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-public Client(String name, String surname, String email) {
-    this.name = name;
-    this.surname = surname;
-    this.email = email;
-}
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
 
-public String getName() {
-    return name;
-}
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; surname&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-public String getSurname() {
-    return surname;
-}
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; surname&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;surname &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; surname&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;email &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-public String getEmail() {
-    return email;
-}&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;}
-{% endhighlight %}&lt;/p&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getSurname&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; surname&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getEmail&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and our main method:&lt;/p&gt;
-&lt;p&gt;{% highlight java %}
-package com.company;&lt;/p&gt;
-&lt;p&gt;import com.company.model.Client;
-import com.fasterxml.jackson.databind.ObjectMapper;&lt;/p&gt;
-&lt;p&gt;import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;&lt;/p&gt;
-&lt;p&gt;public class Main {&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-text line-numbers&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;public static void main(String[] args) throws IOException {
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-java line-numbers&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;com&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;company&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-    Client client = readClientDataFromCli();
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;com&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;company&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;model&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;com&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fasterxml&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;jackson&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;databind&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;ObjectMapper&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-    writeClientToJson(client, &amp;quot;client.json&amp;quot;);
-}
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;IOException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Scanner&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-private static Client readClientDataFromCli() {
-    Scanner sc = new Scanner(System.in);
-    System.out.println(&amp;quot;Insert client data.&amp;quot;);
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Main&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
 
-    System.out.print(&amp;quot;Name: &amp;quot;);
-    String name = sc.next();
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;IOException&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
 
-    System.out.print(&amp;quot;Surname: &amp;quot;);
-    String surname = sc.next();
+        &lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt; client &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;readClientDataFromCli&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-    System.out.print(&amp;quot;Email: &amp;quot;);
-    String email = sc.next();
+        &lt;span class=&quot;token function&quot;&gt;writeClientToJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;client&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;client.json&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-    return new Client(name, surname, email);
-}
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;readClientDataFromCli&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;Scanner&lt;/span&gt; sc &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Scanner&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;in&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Insert client data.&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-private static void writeClientToJson(Client client, String fileName) throws IOException {
-    File outputFile = new File(fileName);
-    outputFile.createNewFile();
+        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Name: &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; sc&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(outputFile, client);
-}&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;}
-{% endhighlight %}&lt;/p&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Surname: &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; surname &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; sc&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Email: &quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; email &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; sc&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; surname&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; email&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;writeClientToJson&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt; client&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; fileName&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;IOException&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;File&lt;/span&gt; outputFile &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;fileName&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        outputFile&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createNewFile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;token class-name&quot;&gt;ObjectMapper&lt;/span&gt; mapper &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ObjectMapper&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        mapper&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;writeValue&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;outputFile&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; client&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now, our IDE is so smart that it allows to run this code straight from the IDE, but let’s try to build executable JAR.&lt;/p&gt;
 &lt;h2&gt;Variant #1 – Build the Executable JAR Manually in Terminal&lt;/h2&gt;
 &lt;p&gt;In this case, we can close our IDE and do everything from the terminal. First, we need to manually download all the dependencies that we have used in our code. Things can get a little tricky as the dependencies we used may depend on other libraries and those libraries depend on others and so on…&lt;/p&gt;
 &lt;p&gt;In our case the only dependency that we have used is &lt;a href=&quot;https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.11.3&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;jackson-databind&lt;/a&gt;. In the &lt;a href=&quot;https://mvnrepository.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;mvnrepository.com&lt;/a&gt; we can see that it needs two other libraries to compile: &lt;a href=&quot;https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;jackson-annotations&lt;/a&gt; and &lt;a href=&quot;https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;jackson-core&lt;/a&gt;. Luckily, none of them depend on any more libraries. &lt;figure class=&quot;wp-block-image size-large is-resized&quot;&gt;&lt;/p&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/jackson-deps.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;jackson-databind 2.11.3 compile dependencies&lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/c85c704087f9b48766e6b0044ff2a9f8/e2e58/jackson-deps.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 23.417721518987342%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsTAAALEwEAmpwYAAABCUlEQVQY01WQzW7CMBCE8/S99FE49MgF9QV6KFELTWJBiOBAQoqa+Cd2bOerCCpSVxrNaEY7K22Srtd8br9Is4xMCMp9iVKKGCPee0bnGIbhgZsXvL9n44gxBmvtzLc8yYWg2mwolyva/YHL9Zu6aTjXDc2l5Xg8keUFRSHICzH7dXOhbVuapibPCw5VRZZllGVJApC+7Xl5WrB7F0gjkXrkRzmkdvR6xNiAth5tA512XHtLjBNME2rwjD7yN3OhWJe8Pi84fexQVqPMSKfczL2+szRu1sb6x/I0TfNRNwZiDIQQSULwpPmZ5WpLWdVI2SHVQC8NUhl6ZVB6+Kedcw90UqPNMP/xhl8AKXpa7U2yPQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;jackson-databind 2.11.3 compile dependencies&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/c85c704087f9b48766e6b0044ff2a9f8/f058b/jackson-deps.png&quot;
+        srcset=&quot;/static/c85c704087f9b48766e6b0044ff2a9f8/c26ae/jackson-deps.png 158w,
+/static/c85c704087f9b48766e6b0044ff2a9f8/6bdcf/jackson-deps.png 315w,
+/static/c85c704087f9b48766e6b0044ff2a9f8/f058b/jackson-deps.png 630w,
+/static/c85c704087f9b48766e6b0044ff2a9f8/40601/jackson-deps.png 945w,
+/static/c85c704087f9b48766e6b0044ff2a9f8/e2e58/jackson-deps.png 1069w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Let’s put all those dependencies in a separate &lt;code class=&quot;language-text&quot;&gt;libs&lt;/code&gt; directory.&lt;/p&gt;
-&lt;p&gt;{% highlight bash %}
-mkdir libs
-cd libs
-wget &lt;a href=&quot;https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar&lt;/a&gt;
-wget &lt;a href=&quot;https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar&lt;/a&gt;
-wget &lt;a href=&quot;https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar&lt;/a&gt;
-{% endhighlight %}&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-bash line-numbers&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; libs
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; libs
+&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar
+&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar
+&lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now, when we have everything in place we can compile our classes. Let’s create a separate &lt;code class=&quot;language-text&quot;&gt;compiled&lt;/code&gt; directory for the generated files. Otherwise, the files will be generated alongside the original files. Here you can see how to use the &lt;code class=&quot;language-text&quot;&gt;javac&lt;/code&gt; command:&lt;/p&gt;
-&lt;p&gt;{% highlight bash %}
-mkdir compiled
-javac -cp “src/:libs/*” -d compiled src/com/company/Main.java
-{% endhighlight %}&lt;/p&gt;
-&lt;p&gt;| &lt;code class=&quot;language-text&quot;&gt;javac&lt;/code&gt;                   | Reads Java class and interface definitions and compiles them into bytecode and class files.
-| &lt;code class=&quot;language-text&quot;&gt;-cp&lt;/code&gt;&lt;br/&gt;&lt;code class=&quot;language-text&quot;&gt;[-classpath]&lt;/code&gt;  | Specifies where to find user class files, and (optionally) annotation processors and source files.
-| &lt;code class=&quot;language-text&quot;&gt;-d&lt;/code&gt;&lt;br/&gt;&lt;code class=&quot;language-text&quot;&gt;[-directory]&lt;/code&gt;   | Sets the destination directory for class files. &lt;br/&gt;The directory must already exist because javac does not create it.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-bash line-numbers&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; compiled
+javac -cp &lt;span class=&quot;token string&quot;&gt;&quot;src/:libs/*&quot;&lt;/span&gt; -d compiled src/com/company/Main.java&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;javac&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Reads Java class and interface definitions and compiles them into bytecode and class files.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;-cp&lt;/code&gt;&lt;br/&gt;&lt;code class=&quot;language-text&quot;&gt;[-classpath]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Specifies where to find user class files, and (optionally) annotation processors and source files.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;-d&lt;/code&gt;&lt;br/&gt;&lt;code class=&quot;language-text&quot;&gt;[-directory]&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Sets the destination directory for class files. &lt;br/&gt;The directory must already exist because javac does not create it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;In our example, we would like to make a so-called fat/uber JAR. This means that all sources (including 3rd party) needed to run the application will be in this file. It is very convenient, but it is not without its drawbacks. If we had several applications that use the same dependencies, making a fat jar for each of them would unnecessarily duplicate those libraries. Therefore usually only application sources are packed into a JAR and external ones are linked using &lt;code class=&quot;language-text&quot;&gt;classpath&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Since JAR is based on a zip, it can be unpacked in many ways, for example with &lt;code class=&quot;language-text&quot;&gt;unzip&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;tar&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;jar&lt;/code&gt; commands. Let’s use commands below. There will be some conflicts regarding the &lt;code class=&quot;language-text&quot;&gt;META-INF&lt;/code&gt; directory and a &lt;code class=&quot;language-text&quot;&gt;module-info.class&lt;/code&gt; file, but we only care about the &lt;code class=&quot;language-text&quot;&gt;com&lt;/code&gt; directory. You can delete the rest.&lt;/p&gt;
-&lt;p&gt;{% highlight bash %}
-cd libs
-unzip “*.jar” -d ../compiled/
-{% endhighlight %}&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-bash line-numbers&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; libs
+&lt;span class=&quot;token function&quot;&gt;unzip&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;*.jar&quot;&lt;/span&gt; -d &lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;/compiled/&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Our &lt;code class=&quot;language-text&quot;&gt;compiled&lt;/code&gt; directory finally contains everything we need to create the executable fat JAR file. You can do this by running a command:&lt;/p&gt;
-&lt;p&gt;{% highlight bash %}
-cd compiled
-jar -cfe app.jar com.company.Main com/
-{% endhighlight %}&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-bash line-numbers&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; compiled
+jar -cfe app.jar com.company.Main com/&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The &lt;code class=&quot;language-text&quot;&gt;jar&lt;/code&gt; command works the same as &lt;code class=&quot;language-text&quot;&gt;zip&lt;/code&gt;. The only difference is that if we give it a parameter, which is the location of the main class (&lt;code class=&quot;language-text&quot;&gt;com.company.Main&lt;/code&gt;), it will automatically generate a manifest. Instead of running the above command, you could create the META-INF/MANIFEST.MF file manually and just zip content of a &lt;code class=&quot;language-text&quot;&gt;compiled&lt;/code&gt; directory. Such a &lt;code class=&quot;language-text&quot;&gt;.zip&lt;/code&gt; file can also be run with the command below, even without changing the extension to &lt;code class=&quot;language-text&quot;&gt;.jar&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;Now you should be able to run the application:&lt;/p&gt;
-&lt;p&gt;{% highlight bash %}
-java -jar compiled/app.jar
-{% endhighlight %}&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-bash line-numbers&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;java -jar compiled/app.jar&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Variant #2 – Build the Uber JAR With Intellij IDE Support&lt;/h2&gt;
 &lt;p&gt;Generating artifacts from IDE is simple and much more convenient than doing it manually. Unfortunately, if we wanted to share the created configuration with other team members, they would have to use the same IDE or configure everything on their own. The build process should be implemented in such a way that it is completely independent of the IDE used. This method is rather suitable for small projects run by one developer, or for some temporary configuration.&lt;/p&gt;
 &lt;p&gt;All the necessary steps only require clicking on a few options. First, run the &lt;code class=&quot;language-text&quot;&gt;Project Structure&lt;/code&gt; window. Use top menu (&lt;code class=&quot;language-text&quot;&gt;File -&amp;gt; Project Structure)&lt;/code&gt;, or a shortcut &lt;code class=&quot;language-text&quot;&gt;Ctrl + Alt + Shift + S&lt;/code&gt;. &lt;/p&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-0.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Project Structure (File -&gt; Project Structure)&lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4649b1b2b60c333236cee575e8e05f64/02cd5/step-0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 55.69620253164557%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB0UlEQVQoz22SW2/TQBCF/ZOgImkTJ77szbtrr29JKoHED+CpSLwhVU2J0xYESIUffNCMk7QFHo7O7Er+Zs6so2HYYb/fYxgGfP/xE4+/fuPh6zcMd/fY3z/gdjfg+maLm+3teHfQbn/3j7Zfdoim/goT/xGv1AfEqYI0BS7iJSazOaazGNN5zOfzeMH18e5seoHXb6YvdDY5RyQvP8O8vUbcfEJZr9CvN/ChgSsD7EG51MikhlCGlSuDJJf/VaS0hTYOyySHsiVU4RggjUVoe7gqcIPCV8iEYjB5nGSsRZq/UKRcD1KqAmxoUXcr1AQqA8MJrK1nEH2wzAQ7TUP+NzSStgUp0wG6cAzzoUZVt/BVjTI0XBOU4EIXY3RdMPw5kOpImAbKtkhVBaEtjCsPk40fjMpPEefL9KTj3fP4UaZrjrvIPaq6Q7+5RL++RLfaoGpaVE2H0HQ8qTlMmdIuhWKn6EfnCQm4FBWWouTFU2SCkDeHfYZ2PBOY4pd1c1oHNeCHVGYEJtIjzizmqeFO2nnel7YOyjquhTZj9FwgIQmJRBokgn6n8eUToTBbJIjGhTsoY7mb1MWTzNHtk7SB9C3MuyuY7j369Rpl3cI4z/v/A4wynKVWjwmaAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Project Structure (File -&amp;gt; Project Structure)&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/4649b1b2b60c333236cee575e8e05f64/f058b/step-0.png&quot;
+        srcset=&quot;/static/4649b1b2b60c333236cee575e8e05f64/c26ae/step-0.png 158w,
+/static/4649b1b2b60c333236cee575e8e05f64/6bdcf/step-0.png 315w,
+/static/4649b1b2b60c333236cee575e8e05f64/f058b/step-0.png 630w,
+/static/4649b1b2b60c333236cee575e8e05f64/02cd5/step-0.png 821w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;IntelliJ will usually detect the java module itself, but if it doesn’t, go to the &lt;code class=&quot;language-text&quot;&gt;Modules&lt;/code&gt; tab and add one yourself by clicking &lt;code class=&quot;language-text&quot;&gt;+&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;Import Module&lt;/code&gt;. Then choose the root directory of the project, in my case it is &lt;code class=&quot;language-text&quot;&gt;simple_app&lt;/code&gt;.&lt;/p&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-1.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Import an existing module&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-3.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Choose the root directory of the project&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-4.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;IDE detects the source code and asks if it should be included in the module (yes)&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-5.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;IDE detects our libraries and asks if they should be included in the module (yes)&lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 285px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/55b688196d520bd3c37fd41da0dc05e7/0e2fe/step-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 51.26582278481012%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB/0lEQVQoz3XQW2vTcBjH8bwf9WJbkyxJc2gObXNualc3HFS0rlVBvdhuHfNuzVpw4KWoDBE3hq/ECVNwV5PljXwl6ZhD5sWH5//8+J94hLOzX/w+P6coCoqLC4riBlVeXO25uN7/Q8hn+0z23pBPb7LPJJ+RT2fs5nvsTnLy6ZS92WV/zeSS0Ap7GE6EXHdR9Cai6iJqLpJWVg9RMfDaAeKyWlE0HU03WRRlarJyZakkKQiWl1Ay3Zj5Oq7WpfIht50QJN2KH3eIsx5r6wPiTq/qgyQjiDN0y64ITjsjSFbw4xW8oDzYJ0j7xNkquh1huSF+mNIKErwgJUx7rN4f4MddmmUeZbTCdP5zw0IwLI+G08IPY5rtEMfzMRvzTDNsdL3O2nCDsNcjjQOiUuSTdmJs20RVJXRdQVbU+YVqMEILxtjd57h3X2Ikz1D9EWowRvYGyNEWrRfHWOPPeMMPOMOPNEcHFefRO+T199T6b5G0BpphItze+MHCk1O8rROczRPcze8sPT3lzugnt4bfWFg/pj3+RP3hF5zREebjI/ThIfbGIe74EPHBVxbXDpB1F80wEOTOK5RsG3v1NY17OxW1u02Zy9kOkt2nJi4hShI1UaQmifN6SZJqLCsyqm5QNxvlDF0su1kNvu3HBFFSza/My1nWTbva+D9ayfjb/wEm4Kz3q322wwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Import an existing module&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/55b688196d520bd3c37fd41da0dc05e7/0e2fe/step-1.png&quot;
+        srcset=&quot;/static/55b688196d520bd3c37fd41da0dc05e7/c26ae/step-1.png 158w,
+/static/55b688196d520bd3c37fd41da0dc05e7/0e2fe/step-1.png 285w&quot;
+        sizes=&quot;(max-width: 285px) 100vw, 285px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 426px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4a1bfd5f1ce59164d12e8fbbb9fcd414/531e1/step-3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 100.63291139240506%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAADBklEQVQ4y42UyW7cRhCG+UaxLoGGZJNsrs2dzWUWaUaWgSSwYyQ5Ja/kHBJocgkgzUxuEhzN+Jn+oGqW2JEF5/CB3VXdP6uru8p4eHjA4+MWj9stttsd7u/vcXt7i9V6jfV6jdWKWOFutcJms8Hd3R02m7+w3e2wO/D+/d/YffiAd+9+hVG3PSazS/STGaYXc0wv52iHMYbJDMP0At14wr5at0iLCtmBvGpQHDiO07yE4fohSJQWVU2LpuvRDRO0RD9G0/bwggjClRjZDkzhMjQ+t8QnkM2I0xyzywVvrnWHSu9FdTegqDVKotH896yseE72JM1gOR6E58N2JSM8uRe8un6F8XQGfRAlwUp3fPQgSvjPtIEEPuYo9DGGIwMkWYFIZQhixQJ+lECGMdvI/1+hT6EUUCoEbNeDQRtVXkLlFeK8giN9eH7I+aTckT+MFSf9GO1JTLiwZQI3G0OoHraMYVA0+yO2fMxSt6jb7mQrGs02Gqui5OiDRO1PQyQpAlUgyiq4frS/ZVVUHGVW1rwpPcxP37LiC6EUUMSSUnIihhdGfArSMiwhYFomk6QKTT8gzTPkRY5EJTBtC6a1x7ItWMJ+gs0aFqfAMD0FM2xhBhpKv0S7eIuif4Wsu2ZE3LPPOqz5HKNAQ8QdHBnC+Lr8BS9e/omzxQ3OFkuEb35H8vY3yNdL+K9vIL69wYvFEmdXS/Y/4WqJr+ZLmN/8AS8dKMIYpl/B8kuMZAER1iiHa+iL7yCVhikL9plfwA4qCC+gHDqcA9sREK4Dz5comwZ118GTHmzHYd+XoLugN2nwe+IqkHzbenLJpUU3TqR5ta+S/wE/7GMJ0ZcEu9kcRd3we3uuvD4Hr3UOgkeSvEQzTA+VU/KCp6V2FPhX5IkgtSPqGkGcnOo55GrYz0/jKEYYRZB+gCAMeU5lOrIEa3BzoKNRxzk/GJ/FFhj5Gc7bnxDNf8a5/gEiKlBUNXcparIsyD2u0QiTlEvrWRKFKNcIx9+jXPyIcPwGqmyh+wEDt74BkUrxDz2b+3vR2K7eAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Choose the root directory of the project&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/4a1bfd5f1ce59164d12e8fbbb9fcd414/531e1/step-3.png&quot;
+        srcset=&quot;/static/4a1bfd5f1ce59164d12e8fbbb9fcd414/c26ae/step-3.png 158w,
+/static/4a1bfd5f1ce59164d12e8fbbb9fcd414/6bdcf/step-3.png 315w,
+/static/4a1bfd5f1ce59164d12e8fbbb9fcd414/531e1/step-3.png 426w&quot;
+        sizes=&quot;(max-width: 426px) 100vw, 426px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/548f2532d6ae349b73960eccce5ae442/ace37/step-4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 98.73417721518987%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAABXklEQVQ4y+2UXVKDMBSFsyyVhkII4acUQtvpIroi9UFbO6OOUF3icW5CELV/zvimD98kuTc5OZmBwx6fntG2OzRti6Zp7TjgYbvF3f0a682m6+/63kvzwe71Ddc3t2BBFCNOc0QqhUyIDFKliFM70lqluYH2uT1+IDAahwbPD3DhcVyOfLAkn6CsZygqjbKeY1rVKKoaU21rhVlrTEqNgqh0t8euqU6mrHgANhayc5T3KOMkg8omEHFiHDg3X3E9IZWZM1sMDx5wh44x3Md+cuCcC9nQ9qlnHRP75vCUi3Mu/Bf884KnPvZ9H38v+Fv0ghQ7V3xscPNDv57XcVAwlMpEVZIXBooySpmhoLvMI0bc0tVc3Zkw8UXhSsIExVYo40+ClHeRSsBFDJ7UFqFMtFGPNGjOQwHmh5GxyzvcnOoEDwSyokS9WEBkJaLlCnK5gsgq6Nnc9OhFer4wxt4BghXVI9+mLR0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;IDE detects the source code and asks if it should be included in the module (yes)&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/548f2532d6ae349b73960eccce5ae442/f058b/step-4.png&quot;
+        srcset=&quot;/static/548f2532d6ae349b73960eccce5ae442/c26ae/step-4.png 158w,
+/static/548f2532d6ae349b73960eccce5ae442/6bdcf/step-4.png 315w,
+/static/548f2532d6ae349b73960eccce5ae442/f058b/step-4.png 630w,
+/static/548f2532d6ae349b73960eccce5ae442/ace37/step-4.png 666w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/44d89b4fafae996cc6441ab59ab13c6a/31493/step-5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 99.36708860759494%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB0klEQVQ4y+2Uy27TQBSG/VAVau25e3yJ7bh1LqR1kooNWxbseARqAaqAB6A0y9iBF/zRjO2ojnoVGxYsPp1/5hz9niNZv7Pd1qibZkjdsq0b3G42+HFzg5+3m8GM6dXNDk2zg/HY/fqNr9++wwniBHGSIU4NY0uUdDrJEMYJknGOUdcz9FqHMVQQwaUcJ4TBJQyOudDRCDpKIPzQwlUAoY0OWnQIqaOutjOmMumDcLXHYwKOH0aQSoIyAkI9CxcSUimLRylcQu7FI9T2DYQxeIzDEadvwS6v8Wr+BUfzaxxNP4HNPyB48xlqVUGtrsDLK4hl1Z0r6HUFv+vZuvwIXlZwgwUcz8/hRiXc8AInYYljfQ5/fI5sfom0uEBaLBHlCyRFiWy6QjZZIp+t93o8Xdsq4wIuU3Dsc7tV9zAOKgQo52BdfYx+xqUMjsckPH4AEwfIO4gHkPAoN4btBeHScnh+CQPD3uRQP2lyd/6pF/5bhv9XHujnMDB86It/9R8SayLuWVnYvDOYNPFMypiEYf1dO9/POM9Zx+SgH4Sgfgw6eg0Sz8BUaMOVK20x2jzCMSH5GFQopPkZiskUMp1Bl++hFu/gJwXOJtN9wp9OZjZ0/wA/1N0LvPuiYwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;IDE detects our libraries and asks if they should be included in the module (yes)&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/44d89b4fafae996cc6441ab59ab13c6a/f058b/step-5.png&quot;
+        srcset=&quot;/static/44d89b4fafae996cc6441ab59ab13c6a/c26ae/step-5.png 158w,
+/static/44d89b4fafae996cc6441ab59ab13c6a/6bdcf/step-5.png 315w,
+/static/44d89b4fafae996cc6441ab59ab13c6a/f058b/step-5.png 630w,
+/static/44d89b4fafae996cc6441ab59ab13c6a/31493/step-5.png 664w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Then go to the &lt;code class=&quot;language-text&quot;&gt;Artifacts&lt;/code&gt; tab and create a new JAR artifact (empty) and set its name.&lt;/p&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-6.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Click &lt;code&gt;+&lt;/code&gt; -&gt; &lt;code&gt;JAR&lt;/code&gt; -&gt; &lt;code&gt;Empty&lt;/code&gt;&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-10.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Click on &lt;code&gt;Create Manifest&lt;/code&gt; and choose &lt;code&gt;./src&lt;/code&gt; directory for &lt;code&gt;META-INF/MANIFEST.MF&lt;/code&gt; file&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-11.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Put our application compile output to JAR&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-12.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;Extract previously downloaded libs (jackson depenedencies) into the JAR&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure style=&quot;text-align: center&quot;&gt;
-&lt;div style=&quot;text-align: center&quot;&gt;
-   &lt;img src=&quot;{{page.assets}}/step-13.png&quot; /&gt;
-&lt;/div&gt;
-&lt;figcaption&gt;This is how a final artifact configuration should look like&lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 589px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/1917cf0dc2fcf11d21a4c9176368578f/b1665/step-6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 51.89873417721519%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABrklEQVQoz23R2U7bQBSAYb9SSxziZTzjGe8LELIo0KBUqnrRq14jwRu0BRWITQS86l/ZaWlLcvHpnJnRObNZ7eaF5vGZdfvU6/KtJ9rHDU3bsm4aHtZb66bl7v6Bbz9u+P5bP98+9muWpzJGIsYJEg79mIFjekNPE+gIoQw6yfCl7nP70OHdwYADe8j7Pwb2lj3E0skxeT0lzsd0uYyPUKbAS5eYzxvkaoO/esa7eEJctKiLO/THBue8xTlvcD50cY2zfMGtv2IF0RFZPUenY3xdI8wRwtS4YUUy/0QxXlJOVtTTFSo9RUQnRNWCqDrDlNvY0eUZjkyxVKhJ0gxtIqQKt2SIF0jy0xllVVLWFVmREyjJyHF6jrvLEwJrOLvFrH7iLm4ZTG8Zzm6w5/fY9SW6qInTHF+GCKlxhcT1Zf+e+4VYYnJFtLhGza4Qk2tGx5eMTq4YFV9wPR9l4lddQ0/IvtAL1F6W0hFZXmKiBG1ipDK9QG13fKsreo3B7roVmBqTjXs6PaEbdx8ldPFfsRf8PdW/J9zTsCLKx4TJMb4uCTqmQoTZTsHbhvtu8Au1iH2/2iMC6QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Click &amp;#39;+&amp;#39; then &amp;#39;JAR&amp;#39; then &amp;#39;Empty&amp;#39;&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/1917cf0dc2fcf11d21a4c9176368578f/b1665/step-6.png&quot;
+        srcset=&quot;/static/1917cf0dc2fcf11d21a4c9176368578f/c26ae/step-6.png 158w,
+/static/1917cf0dc2fcf11d21a4c9176368578f/6bdcf/step-6.png 315w,
+/static/1917cf0dc2fcf11d21a4c9176368578f/b1665/step-6.png 589w&quot;
+        sizes=&quot;(max-width: 589px) 100vw, 589px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 359px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/1af7ea97bd9aed1a94038162b8c0fcba/f5eb6/step-10.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 87.9746835443038%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB90lEQVQ4y62T227aQBCG/UapQgCza3sPgOvj2piGcwmiSqtetWqUq16QRuorVG0IUS77ln/lxThEJJRUvfj0a2as8ezsv0Y3S+AqhbYr4boShNTg+y28/zCHFBTMaUBwAsc2/0IdjFkw5Pk9xLs7ONMb8NkSdPwD5ngFfv4blf4vHPc2/NxP/wav1DUMenYLMVuCzW4h50vI+QqV4QpHp0tUBncPDPeg6/c4Sr7DoKQKQqqgBYScwKYnsK3qWl+CZcKweBMWewz9ZyQMiwlQh8NyeKkWK7TIvQTd8H9iEMZAnBynhOa5Td5y0NiC2OxRbFJb58oJYz+D5yrEYVYS+ilCrwMVd+GFEfxIwdcao+0FOg4iBS+IECUdtF57umm+IoNfEsjPNuQXG80LB60LBvHJgnNZhz2y4XsJApUgVKkmbxYlKeI003EQJ2Ciud5/fmR3wZEtFNJFgM63GN3rGMnXEPyqDvPjMTrxAP3JBMPJFOPpGcbTGUZv13o6GMEL4/K4umG9X0O9t4vZq4G2GGwmYfMcUehuXDolb2g1mngWWxxklc0N60uhnONZGD/YLg8THvjx9jTbU+34MC9u++gp8j05ornT/MmXkttApZm2Q5x2EBYWiQtr5D7MvaeyN/oi9k2nJ9z83RHbKst4XZcQrfZBb/kPATyL44r/vIoAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Click on &amp;#39;Create Manifest&amp;#39; and choose &amp;#39;./src&amp;#39; directory for &amp;#39;META-INF/MANIFEST.MF&amp;#39; file&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/1af7ea97bd9aed1a94038162b8c0fcba/f5eb6/step-10.png&quot;
+        srcset=&quot;/static/1af7ea97bd9aed1a94038162b8c0fcba/c26ae/step-10.png 158w,
+/static/1af7ea97bd9aed1a94038162b8c0fcba/6bdcf/step-10.png 315w,
+/static/1af7ea97bd9aed1a94038162b8c0fcba/f5eb6/step-10.png 359w&quot;
+        sizes=&quot;(max-width: 359px) 100vw, 359px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/69f20d2019ec40ae2827e6d8e6f49b3a/d67ca/step-11.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.88607594936708%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsTAAALEwEAmpwYAAACK0lEQVQ4y3WU22rcMBCG/TItJG0KJSS7a8k6y5Jle3cdBwLNTS+S9DEKoX3uv8zYm24LufgYaSz9kubgyrcZIXUYDhNyP8K3CeR7DxcTXGzhc49YRhgXoF2A8QEutKhoYkPLC0PKaEuPVAbmfJzOxrTutMf4yCzzFpVPHXI/8C1pMd0y5A4xF7bkZ9Yx+ekVdBHtA4udLIlWh+kOD98eMc0z5nnGMAxIKaHrOpRSYJ2DMgZSE5ZpbEBjPBrrV0tzB209KjM+oE4H3JiMGzfg08Yyl7cGl5uFq61FP91jnGb04wClJWqxQy13EHIHKbcQjWThqslHiDhgYxI+3ypcbUlAn2HYfyE73KYjvqZnXM+/sb1/xeb+FV/Gn7gYfuGjecKHa4GqURpSaZBVxkJpw2hj31DaolYWOrao7YgwvaCdnpHmF/jDE0T+jp07QiiNit6uOBZuxUNqh7rRf1FL/GqpoI3BMBaUkiEbwcTWQxvNayrKWi6nLC+l0ebyVhYEZZQFGw0XEvr9UrPkT2VEvz+uCTOLoF839vsDhv0RZdyzOJVTWg8TykBoy7ahTGuLnVRL1vkwxS+saDHdxoaIbhjRkVg/wKfMxLUmxfpsFn4HFoxrwXI7ra1lYwvlPKPX1lo2LYKyUZzIczEKB920OrUOV/rZ+P/TOUZkjYcII4Qv0HSgj5xU7hgXUO1kgzfEaaw4Jv+iUdM3HaHufkD0jxwOijeFi34u1Mt/AD2k82IB4cN4AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Put our application compile output to JAR&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/69f20d2019ec40ae2827e6d8e6f49b3a/f058b/step-11.png&quot;
+        srcset=&quot;/static/69f20d2019ec40ae2827e6d8e6f49b3a/c26ae/step-11.png 158w,
+/static/69f20d2019ec40ae2827e6d8e6f49b3a/6bdcf/step-11.png 315w,
+/static/69f20d2019ec40ae2827e6d8e6f49b3a/f058b/step-11.png 630w,
+/static/69f20d2019ec40ae2827e6d8e6f49b3a/d67ca/step-11.png 714w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a447a3f07265cd15eb4758fe0887eb87/3d4b6/step-12.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.25316455696203%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsTAAALEwEAmpwYAAACHklEQVQ4y22Ty07cQBBF/SnZkWSTAQSMX/1+2O72DMYMIEICi2yi7PMJWSRSFvnhG1V7PA/B4qiq2+WrKtXtTBoHZT3Cag3XBghtIczbSGPBtYFQBtK10E1ALSQqLlELBSYUMhIgUcL4Fj5ENKFHE+I235/n3DYt5kakdfvcOGQk0qaibidGd3SmqBMNtJugO2UduDLH6Clm1+OI+8fPGMYR4+0tQoxw3qNpW7RdB6loFIk6jbUdTertiFPcI5FVYYNL0+OMeZzyDicXHCcXIvGe4qXAxyuBbtigv9mgiz1qzpFXVaKoa5SM4Ci4QqZXd9BxALMB55XCBTM4KxUWOcciF4lPS46T3GIhAxYsYunukXviAefyBgs24EPe4N1pjYxvF6KMhbYOxjoIpdOYhxRMYlnkuPTfoJ//wXz5A/30G/zhF67u/mLZfUdRFsjmlVOcmPKi5geI3Z3UGrGPaLoGZV2hZgzOWzAx1Wa+i2jjtGWKhO9CskHarPXJd7Mg3cf1gDauwKRBG1aIq2H3PZttQIVdv04GJ1HXdkmYoJqSiVed5xU7OlNNZlyzNbZFE/sEiSTv+SZ1TsyCRLlldz74lqUfUpceJhnYQzl/ZFh6TdWBQMUYKjZ1NIvNMTs2ptot6KqosCzricO8EshVwFI0uzdMYhQLGpme3Stijy6u3qBHu96gf/mJ8PgDt/cPeHz6iutxg6fnFwzjBv8BZLT2AiLhXrsAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Extract previously downloaded libs (jackson depenedencies) into the JAR&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/a447a3f07265cd15eb4758fe0887eb87/f058b/step-12.png&quot;
+        srcset=&quot;/static/a447a3f07265cd15eb4758fe0887eb87/c26ae/step-12.png 158w,
+/static/a447a3f07265cd15eb4758fe0887eb87/6bdcf/step-12.png 315w,
+/static/a447a3f07265cd15eb4758fe0887eb87/f058b/step-12.png 630w,
+/static/a447a3f07265cd15eb4758fe0887eb87/3d4b6/step-12.png 712w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/3324b85a06a34dd270df852499d06069/636c2/step-13.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 62.0253164556962%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAAAsTAAALEwEAmpwYAAABs0lEQVQoz32S247TMBRF+z3wACMxdNomvjuOnUsvIw0dWjQSQogXJEA8wNcvlEsztBU8LG0nOd4+2T6zm5XhNnfcLDWvFwrtAi5EilQTRqZ11Yxa42PC+IANEeV8T/c8E1KRS4UYiSlStzUplcRU4gtHETzWGbTVaOswzqOtR2rTo4wdsI7ZSmhWUrMSikxZ0sMX/PYT4f4zqn5CxCMyfSArDyz8O3KXyGzJnfLcZvqMN5lmlklNNhk6wuE3xf4X2eYnd82Pke+DVl+Zu5a5ibxaGl68lbycnzMYdmZSs8wEsWlYb1qqqqSuIykFiuDw3uC8IZeSTMghJqWvmE3ddYa5xJTdJTT4sqKINcoFhHYI43vt6/s9w75Lzn9ZarQrzlDW9+8XmegPPNWd9JIrw9OoxKqhatb92oUSHyLGFf80mgwvT3RF2XdVpIrUtIRU4crYz13H/7o76/BEN9TWB/xoYosS3c1dF4EPz7VCkuX5dYZDNmLKKFcGoe3EKb+JXA61KrByLbl2SNNdWodltt7e8zftdke7GdnuuPy+3nW6Zf34kc3TNx4ej+wPR/bvOw78AU8DrcpKQ/VpAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;This is how a final artifact configuration should look like&quot;
+        title=&quot;Open image&quot;
+        src=&quot;/static/3324b85a06a34dd270df852499d06069/f058b/step-13.png&quot;
+        srcset=&quot;/static/3324b85a06a34dd270df852499d06069/c26ae/step-13.png 158w,
+/static/3324b85a06a34dd270df852499d06069/6bdcf/step-13.png 315w,
+/static/3324b85a06a34dd270df852499d06069/f058b/step-13.png 630w,
+/static/3324b85a06a34dd270df852499d06069/636c2/step-13.png 911w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Now, build a project. You can do it by: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;running &lt;code class=&quot;language-text&quot;&gt;Build -&amp;gt; Build Project&lt;/code&gt; from the top menu&lt;/li&gt;
-&lt;li&gt;using a hammer in the toolbar – &lt;img loading=&quot;lazy&quot; width=&quot;221&quot; height=&quot;32&quot; class=&quot;wp-image-82&quot; style=&quot;width: 200px;&quot; src=&quot;https://kdrozd.pl/wp-content/uploads/2020/11/image-14.png&quot; alt=&quot;&quot;&gt; &lt;/li&gt;
+&lt;li&gt;using a hammer in the toolbar&lt;/li&gt;
 &lt;li&gt;using a shortcut &lt;code class=&quot;language-text&quot;&gt;Ctrl + F9&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You should see a new directory, which includes our JAR. You can run it the same way as previosuly:&lt;/p&gt;
-&lt;p&gt;{% highlight bash %}
-java -jar simple_app.jar
-{% endhighlight %}&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-bash line-numbers&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;java -jar simple_app.jar&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;We obtained exactly the same effect as before, this time using the support of our IDE.&lt;/p&gt;
 &lt;h2&gt;Variant #3 – Build the Fat JAR With Maven and Gradle&lt;/h2&gt;
 &lt;p&gt;Previous approaches required us to download dependencies ourselves, which is not the most interesting activity. Maven and Gradle take this burden off us and take care of collecting all dependencies themselves. Of course, you can take advantage of Gradle’s/Maven’s dependency management and still generate artifact using your IDE without the need of downloading dependencies manually. This process is very similar to what I showed in variant 2, and I think you will be able to figure it out for yourself. &lt;/p&gt;
@@ -2220,78 +2489,83 @@ java -jar simple_app.jar
 I will only show a configuration snippet that will allow you to generate an executable JAR.
 In the highlighted fragments it is enough to set the &lt;code class=&quot;language-text&quot;&gt;Main-Class&lt;/code&gt; parameter.
 The build tool will do the rest.&lt;/p&gt;
-&lt;p&gt;{% highlight gradle %}
-plugins {
-id ‘java’
-}&lt;/p&gt;
-&lt;p&gt;group ‘com.company’
-version ‘1.0-SNAPSHOT’&lt;/p&gt;
-&lt;p&gt;sourceCompatibility = 1.8&lt;/p&gt;
-&lt;p&gt;repositories {
-mavenCentral()
-}&lt;/p&gt;
-&lt;p&gt;dependencies {
-compile group: ‘com.fasterxml.jackson.core’, name: ‘jackson-databind’, version: ‘2.11.3’
-}&lt;/p&gt;
-&lt;p&gt;jar {
-manifest {
-attributes “Main-Class”: “com.company.Main”
-}&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-text line-numbers&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;from {
-    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-}&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;}
-{% endhighlight %}&lt;/p&gt;
-&lt;p&gt;{% highlight xml %}&lt;/p&gt;
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;p&gt;&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
-&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-text line-numbers&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;groupId&amp;gt;com.company&amp;lt;/groupId&amp;gt;
-&amp;lt;artifactId&amp;gt;simple_app&amp;lt;/artifactId&amp;gt;
-&amp;lt;version&amp;gt;1.0-SNAPSHOT&amp;lt;/version&amp;gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-java line-numbers&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;plugins &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id &lt;span class=&quot;token string&quot;&gt;&apos;java&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&amp;lt;properties&amp;gt;
-    &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
-    &amp;lt;maven.compiler.source&amp;gt;1.8&amp;lt;/maven.compiler.source&amp;gt;
-    &amp;lt;maven.compiler.target&amp;gt;1.8&amp;lt;/maven.compiler.target&amp;gt;
-&amp;lt;/properties&amp;gt;
+group &lt;span class=&quot;token string&quot;&gt;&apos;com.company&apos;&lt;/span&gt;
+version &lt;span class=&quot;token string&quot;&gt;&apos;1.0-SNAPSHOT&apos;&lt;/span&gt;
 
-&amp;lt;dependencies&amp;gt;
+sourceCompatibility &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1.8&lt;/span&gt;
 
-    &amp;lt;dependency&amp;gt;
-        &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt;
-        &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt;
-        &amp;lt;version&amp;gt;2.11.3&amp;lt;/version&amp;gt;
-    &amp;lt;/dependency&amp;gt;
+repositories &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;mavenCentral&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&amp;lt;/dependencies&amp;gt;
+dependencies &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    compile group&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;com.fasterxml.jackson.core&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;jackson-databind&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; version&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;2.11.3&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&amp;lt;build&amp;gt;
-    &amp;lt;plugins&amp;gt;
-        &amp;lt;plugin&amp;gt;
-            &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
-            &amp;lt;artifactId&amp;gt;maven-shade-plugin&amp;lt;/artifactId&amp;gt;
-            &amp;lt;version&amp;gt;3.2.4&amp;lt;/version&amp;gt;
-            &amp;lt;executions&amp;gt;
-                &amp;lt;execution&amp;gt;
-                    &amp;lt;phase&amp;gt;package&amp;lt;/phase&amp;gt;
-                    &amp;lt;goals&amp;gt;
-                        &amp;lt;goal&amp;gt;shade&amp;lt;/goal&amp;gt;
-                    &amp;lt;/goals&amp;gt;
-                    &amp;lt;configuration&amp;gt;
-                        &amp;lt;transformers&amp;gt;
-                            &amp;lt;transformer implementation=&amp;quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&amp;quot;&amp;gt;
-                                &amp;lt;mainClass&amp;gt;com.company.Main&amp;lt;/mainClass&amp;gt;
-                            &amp;lt;/transformer&amp;gt;
-                        &amp;lt;/transformers&amp;gt;
-                    &amp;lt;/configuration&amp;gt;
-                &amp;lt;/execution&amp;gt;
-            &amp;lt;/executions&amp;gt;
-        &amp;lt;/plugin&amp;gt;
-    &amp;lt;/plugins&amp;gt;
-&amp;lt;/build&amp;gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/project&gt;
+jar &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    manifest &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        attributes &lt;span class=&quot;token string&quot;&gt;&quot;Main-Class&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;com.company.Main&quot;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    from &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        configurations&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;compile&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;collect &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; it&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;isDirectory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; it &lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;zipTree&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;it&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;xml&quot;&gt;&lt;pre style=&quot;counter-reset: linenumber NaN&quot; class=&quot;language-xml line-numbers&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token prolog&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;project&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;xmlns&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;http://maven.apache.org/POM/4.0.0&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;xmlns:&lt;/span&gt;xsi&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;http://www.w3.org/2001/XMLSchema-instance&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;
+         &lt;span class=&quot;token attr-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;xsi:&lt;/span&gt;schemaLocation&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;modelVersion&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;4.0.0&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;modelVersion&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;com.company&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;simple_app&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;1.0-SNAPSHOT&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;properties&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;project.build.sourceEncoding&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;UTF-8&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;project.build.sourceEncoding&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;maven.compiler.source&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;1.8&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;maven.compiler.source&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;maven.compiler.target&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;1.8&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;maven.compiler.target&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;properties&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;dependencies&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;com.fasterxml.jackson.core&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;jackson-databind&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;2.11.3&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;dependency&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;dependencies&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;plugins&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;plugin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;groupId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;maven-shade-plugin&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;artifactId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;3.2.4&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;executions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;execution&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;phase&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;package&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;phase&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;goals&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;goal&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;shade&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;goal&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;goals&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;configuration&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;transformers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;transformer&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;implementation&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;mainClass&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;com.company.Main&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;mainClass&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;transformer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;transformers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;configuration&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;execution&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+                &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;executions&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;plugin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+        &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;plugins&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;project&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;span aria-hidden=&quot;true&quot; class=&quot;line-numbers-rows&quot; style=&quot;white-space: normal; width: auto; left: 0;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Of course, many other techniques and plugins can be used to create a fat JAR with Maven and Gradle, because it is just a ZIP archive. The JAR file can be created by any way that allows you to create a ZIP archive. You just need to change its extension and keep the file structure (&lt;code class=&quot;language-text&quot;&gt;MANIFEST.MF&lt;/code&gt;) that will be understood by Java Runtime. &lt;/p&gt;
 &lt;h2&gt;Summary&lt;/h2&gt;
 &lt;p&gt;In this post, I showed you three ways to create an executable JAR file: manually, using IDE and using build tools (Maven and Gradle). I also proved that the JAR is nothing more than a ZIP file with some specific structure inside. The code is available &lt;a href=&quot;https://github.com/kkdrz/fat-jar-examples&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot;&gt;on GitHub&lt;/a&gt;.&lt;/p&gt;</content:encoded></item></channel></rss>
