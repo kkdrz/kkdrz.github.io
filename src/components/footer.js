@@ -6,17 +6,18 @@ import {
   faInstagramSquare,
 } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { OutboundLink } from "gatsby-plugin-google-gtag"
 
 const Footer = () => {
   const SocialSquare = ({ href, icon, title }) => (
-    <a
+    <OutboundLink
       className="text-gray-100 p-2 hover:text-blue-100"
       href={href}
       target="_blank"
       rel="noopener noreferrer"
     >
       <FontAwesomeIcon title={title} size="3x" icon={icon} />
-    </a>
+    </OutboundLink>
   )
 
   return (
