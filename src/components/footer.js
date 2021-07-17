@@ -5,6 +5,7 @@ import {
   faLinkedin,
   faInstagramSquare,
 } from "@fortawesome/free-brands-svg-icons"
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { OutboundLink } from "gatsby-plugin-google-gtag"
 
@@ -50,6 +51,11 @@ const Footer = () => {
               title="Instagram"
               href="https://www.instagram.com/konradrzd/"
               icon={faInstagramSquare}
+            />
+            <SocialSquare
+              title="E-mail"
+              href="mailto:konrad@kdrozd.pl"
+              icon={faEnvelope}
             />
           </div>
         </div>

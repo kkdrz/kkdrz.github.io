@@ -12,7 +12,7 @@ const Header = ({ children }) => {
       <div className="flex">
           <Link className={menuItemClasses} to="/blog">Blog</Link>
           {/* <Link className={menuItemClasses} to="/snippets">Snippets</Link> */}
-          {/* <Link className={menuItemClasses} to="/about">About me</Link> */}
+          <Link className={menuItemClasses} to="/about">About me</Link>
       </div>
     </header>
   )
