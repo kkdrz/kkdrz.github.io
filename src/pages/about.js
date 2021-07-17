@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Expand from "react-expand-animated"
 
 const Keyword = ({ children }) => {
   return (
@@ -113,12 +114,16 @@ const About = () => {
                   {howLongInCurrentJob(new Date(2017, 7, 17))}
                 </span>
                 <button
-                  className={"mt-auto ml-auto p-2 items-center " + (tietoProjectsVisible ? "": "animate-pulse")}
+                  className={
+                    "mt-auto ml-auto p-2 items-center " +
+                    (tietoProjectsVisible ? "" : "animate-pulse")
+                  }
                   onClick={() => setTietoProjectsVisible(!tietoProjectsVisible)}
                 >
                   {tietoProjectsVisible ? "Hide " : "Show "}projects
                   <FontAwesomeIcon
-                    className={"" +
+                    className={
+                      "" +
                       (tietoProjectsVisible
                         ? "pr-1 transform rotate-180"
                         : "pl-1")
@@ -129,8 +134,7 @@ const About = () => {
                 </button>
               </div>
             </div>
-            <div className={tietoProjectsVisible ? "flex flex-col" : "hidden"}>
-
+            <Expand className={"flex flex-col"} open={tietoProjectsVisible}>
               <Project
                 title={"Project #3"}
                 duration={"2.5 year"}
@@ -214,16 +218,12 @@ const About = () => {
                 Jersey and Vert.x. Due to the limited number of queries to
                 Wunderground API, the cache mechanism has also been implemented.
               </Project>
-
-
-            </div>
+            </Expand>
           </div>
         </div>
         <div className="flex flex-col">
           <h2 className="text-center">Education</h2>
-          <p>
-            There will be something soon...
-          </p>
+          <p>There will be something soon...</p>
         </div>
         <div className="flex flex-col">
           <h2 className="text-center">Contact</h2>
