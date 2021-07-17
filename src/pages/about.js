@@ -6,7 +6,12 @@ import SEO from "../components/seo"
 import Card from "../components/about/card"
 import Project from "../components/about/project"
 
+import myPhoto from "../images/konrad_drozd.jpg"
+import myPhotoSmile from "../images/konrad_drozd_smile.jpg"
+
 const About = () => {
+  const [replaceImage, setReplaceImage] = useState(false)
+
   const howLongInCurrentJob = startDate => {
     const diffTime = new Date().getTime() - startDate.getTime()
     const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30))
@@ -38,13 +43,11 @@ const About = () => {
       <div className="flex flex-col mt-4 px-4 mx-auto items-center max-w-screen-lg">
         <div className="flex flex-col items-center md:flex-row mx-auto">
           <div className="flex justify-center max-w-1/2 border-b pb-4 md:border-b-0 md:border-r md:pr-4 md:mx-0">
-            <StaticImage
-              className="w-48 max-h-80"
-              imgClassName="rounded-full max-h-80"
-              src="../images/konrad_drozd.jpg"
-              alt="Konrad Drozd photo"
-              placeholder="blurred"
-            ></StaticImage>
+            <img
+              className={"w-48 max-h-80 rounded-full"}
+              alt="Konrad Drozd"
+              src={replaceImage ? myPhotoSmile : myPhoto}
+            ></img>
           </div>
 
           <div className="flex flex-col md:ml-7 text-justify">
@@ -74,6 +77,7 @@ const About = () => {
               howLongInCurrentJob(new Date(2017, 7, 17))
             }
             detailsButton="projects"
+            onClick={() => setReplaceImage(!replaceImage)}
             image={
               <StaticImage
                 alt="TietoEvry"
@@ -175,6 +179,7 @@ const About = () => {
             mainTitle="Master of Computer Science"
             subTitle={"October 2015 - June 2020 (5 years)"}
             detailsButton="details"
+            onClick={() => setReplaceImage(!replaceImage)}
             image={
               <StaticImage
                 alt="Wroclaw University of Science and Technology"
@@ -188,7 +193,9 @@ const About = () => {
             <div className="flex flex-row mt-2 pt-1">
               <div className="flex w-24"></div>
               <div className="flex flex-col pl-5">
-                <span className="font-semibold pb-4">Department of IT and Management</span>
+                <span className="font-semibold pb-4">
+                  Department of IT and Management
+                </span>
                 <div>
                   Member of:{" "}
                   <ul className="pt-1">
