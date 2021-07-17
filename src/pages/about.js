@@ -3,41 +3,10 @@ import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Expand from "react-expand-animated"
-
-const Keyword = ({ children }) => {
-  return (
-    <div className="flex bg-blue-500 rounded-md px-3 py-0.5 text-gray-100 mr-2 mt-1">
-      {children}
-    </div>
-  )
-}
-
-const Project = ({ title, duration, children, keywords }) => {
-  return (
-    <div className="flex flex-col md:flex-row mt-2 pt-1">
-      <div className="flex flex-col flex-shrink-0 border-b md:border-r md:w-2/12">
-        <span>{title}</span>
-        <div className="italic text-sm text-gray-500">{duration}</div>
-      </div>
-      <div className="flex flex-col pt-1 md:pl-4 text-justify">
-        <div>{children}</div>
-
-        <div className="flex flex-row flex-wrap py-2">
-          {keywords.map((keyword, i) => (
-            <Keyword key={i}>{keyword}</Keyword>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
+import Card from "../components/about/card"
+import Project from "../components/about/project"
 
 const About = () => {
-  const [tietoProjectsVisible, setTietoProjectsVisible] = useState(false)
-
   const howLongInCurrentJob = startDate => {
     const diffTime = new Date().getTime() - startDate.getTime()
     const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30))
@@ -98,8 +67,14 @@ const About = () => {
         <div className="flex flex-col w-full">
           <h2 className="text-center">Experience</h2>
 
-          <div className="flex flex-col shadow-md p-4 ">
-            <div className="flex flex-row p-4">
+          <Card
+            mainTitle="Software Engineer"
+            subTitle={
+              "July 2017 - currently " +
+              howLongInCurrentJob(new Date(2017, 7, 17))
+            }
+            detailsButton="projects"
+            image={
               <StaticImage
                 alt="TietoEvry"
                 className="w-24"
@@ -107,123 +82,139 @@ const About = () => {
                 imgStyle={{ objectFit: "contain" }}
                 src={"../images/tietoevry.png"}
               ></StaticImage>
-              <div className="flex flex-col w-full justify-center ml-8">
-                <span className="font-semibold text-lg">Software Engineer</span>
-                <span className="italic text-sm text-gray-500">
-                  July 2017 - currently{" "}
-                  {howLongInCurrentJob(new Date(2017, 7, 17))}
-                </span>
-                <button
-                  className={
-                    "mt-auto ml-auto p-2 items-center " +
-                    (tietoProjectsVisible ? "" : "animate-pulse")
-                  }
-                  onClick={() => setTietoProjectsVisible(!tietoProjectsVisible)}
-                >
-                  {tietoProjectsVisible ? "Hide " : "Show "}projects
-                  <FontAwesomeIcon
-                    className={
-                      "" +
-                      (tietoProjectsVisible
-                        ? "pr-1 transform rotate-180"
-                        : "pl-1")
-                    }
-                    size="1x"
-                    icon={faChevronDown}
-                  />{" "}
-                </button>
+            }
+          >
+            <Project
+              title={"Project #3"}
+              duration={"2.5 year"}
+              keywords={["Java", "SIP", "Diameter"]}
+            >
+              A project for a telecommunications operator providing services for
+              several countries in Europe. As a team, we created IMS based{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://en.wikipedia.org/wiki/Value-added_service"
+              >
+                Value-Added-Services
+              </a>{" "}
+              using SIP and Diameter protocols. Tests (especially functional)
+              were extremely important in the project and we spent a lot of time
+              on this topic.
+            </Project>
+            <Project
+              title={"Project #2"}
+              duration={"9 months"}
+              keywords={["Java", "Panther", "SQL"]}
+            >
+              The aim of the project was to port a part of the ERP-like system
+              from ancient technology (Panther, good luck finding what it is) to
+              Java. I was a team leader in the project. The difficulty of this
+              work was the lack of documentation for the existing application. I
+              remember this project as a lesson. It taught me, above all, how
+              dangerous is technological debt and showed me live that when
+              deadlines are chasing, adding new programmers to the project is
+              the last nail in the coffin.
+            </Project>
+            <Project
+              title={"Project #1"}
+              duration={"2 months"}
+              keywords={[
+                "Java",
+                "JavaScript",
+                "Protobuf",
+                "Jersey",
+                "JaCoCo",
+                "Scrum",
+              ]}
+            >
+              I was working on a vehicle simulator to test a platform that
+              collects real-time information from vehicle sensors. This
+              application was supposed to allow the user to manually draw the
+              route of the simulated vehicle and to mark events (such as:
+              detection of sign/pedestrian/slippery surface, or connection
+              problems) on the map. The drawn scenario was saved to a file and
+              then it could be used for a real-time simulation using the
+              protobuf protocol.
+            </Project>
+            <Project
+              title={"Internship"}
+              duration={"3 months"}
+              keywords={[
+                "Java",
+                "Jersey",
+                "Vert.x",
+                "Hibernate",
+                "JSP",
+                "JQuery",
+                "SoapUI",
+              ]}
+            >
+              I created a website that displays the weather forecast. The scope
+              of work included design, implementation and tests (unit and
+              functional). The backend was an REST API based on the existing
+              service -{" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.wunderground.com/"
+              >
+                Wunderground
+              </a>
+              . This site's API was not entirely consistent and had some design
+              flaws. My job was to improve this API by making an adapter. As
+              part of the exercises backend was written in both Jersey and
+              Vert.x. Due to the limited number of queries to Wunderground API,
+              the cache mechanism has also been implemented.
+            </Project>
+          </Card>
+        </div>
+        <div className="flex flex-col w-full">
+          <h2 className="text-center">Education</h2>
+          <Card
+            mainTitle="Master of Computer Science"
+            subTitle={"October 2015 - June 2020 (5 years)"}
+            detailsButton="details"
+            image={
+              <StaticImage
+                alt="Wroclaw University of Science and Technology"
+                className="w-24"
+                imgClassName="object-contain"
+                imgStyle={{ objectFit: "contain" }}
+                src={"../images/pwr.png"}
+              ></StaticImage>
+            }
+          >
+            <div className="flex flex-row mt-2 pt-1">
+              <div className="flex w-24"></div>
+              <div className="flex flex-col pl-5">
+                <span className="font-semibold pb-4">Department of IT and Management</span>
+                <div>
+                  Member of:{" "}
+                  <ul className="pt-1">
+                    <li>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://samorzad.pwr.edu.pl/w8"
+                      >
+                        Faculty Council of the Student Government
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://www.facebook.com/ASI.PWr"
+                      >
+                        The Academic IT Association
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <Expand className={"flex flex-col"} open={tietoProjectsVisible}>
-              <Project
-                title={"Project #3"}
-                duration={"2.5 year"}
-                keywords={["Java", "SIP", "Diameter"]}
-              >
-                A project for a telecommunications operator providing services
-                for several countries in Europe. As a team, we created IMS based{" "}
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://en.wikipedia.org/wiki/Value-added_service"
-                >
-                  Value-Added-Services
-                </a>{" "}
-                using SIP and Diameter protocols. Tests (especially functional)
-                were extremely important in the project and we spent a lot of
-                time on this topic.
-              </Project>
-              <Project
-                title={"Project #2"}
-                duration={"9 months"}
-                keywords={["Java", "Panther", "SQL"]}
-              >
-                The aim of the project was to port a part of the ERP-like system
-                from ancient technology (Panther, good luck finding what it is)
-                to Java. I was a team leader in the project. The difficulty of
-                this work was the lack of documentation for the existing
-                application. I remember this project as a lesson. It taught me,
-                above all, how dangerous is technological debt and showed me
-                live that when deadlines are chasing, adding new programmers to
-                the project is the last nail in the coffin.
-              </Project>
-              <Project
-                title={"Project #1"}
-                duration={"2 months"}
-                keywords={[
-                  "Java",
-                  "JavaScript",
-                  "Protobuf",
-                  "Jersey",
-                  "JaCoCo",
-                  "Scrum",
-                ]}
-              >
-                I was working on a vehicle simulator to test a platform that
-                collects real-time information from vehicle sensors. This
-                application was supposed to allow the user to manually draw the
-                route of the simulated vehicle and to mark events (such as:
-                detection of sign/pedestrian/slippery surface, or connection
-                problems) on the map. The drawn scenario was saved to a file and
-                then it could be used for a real-time simulation using the
-                protobuf protocol.
-              </Project>
-              <Project
-                title={"Internship"}
-                duration={"3 months"}
-                keywords={[
-                  "Java",
-                  "Jersey",
-                  "Vert.x",
-                  "Hibernate",
-                  "JSP",
-                  "JQuery",
-                  "SoapUI",
-                ]}
-              >
-                I created a website that displays the weather forecast. The
-                scope of work included design, implementation and tests (unit
-                and functional). The backend was an REST API based on the
-                existing service -{" "}
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.wunderground.com/"
-                >
-                  Wunderground
-                </a>
-                . This site's API was not entirely consistent and had some
-                design flaws. My job was to improve this API by making an
-                adapter. As part of the exercises backend was written in both
-                Jersey and Vert.x. Due to the limited number of queries to
-                Wunderground API, the cache mechanism has also been implemented.
-              </Project>
-            </Expand>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <h2 className="text-center">Education</h2>
-          <p>There will be something soon...</p>
+          </Card>
         </div>
         <div className="flex flex-col">
           <h2 className="text-center">Contact</h2>
