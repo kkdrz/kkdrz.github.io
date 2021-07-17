@@ -4,11 +4,22 @@ import React from "react"
 import { useState } from "react"
 import Expand from "react-expand-animated"
 
-const Card = ({ image, mainTitle, subTitle, detailsButton, children }) => {
+const Card = ({
+  image,
+  mainTitle,
+  subTitle,
+  onClick,
+  detailsButton,
+  children,
+}) => {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="flex flex-col p-8 shadow-md2">
+    <div
+      onClick={() => onClick()}
+      onKeyDown={() => onClick()}
+      className="flex flex-col p-8 shadow-md2"
+    >
       <div className="flex flex-row items-center max-h-24">
         {image}
         <div className="flex flex-row w-full ml-8">
@@ -17,14 +28,17 @@ const Card = ({ image, mainTitle, subTitle, detailsButton, children }) => {
             <span className="italic text-sm text-gray-500">{subTitle}</span>
           </div>
 
-          <button hidden={!children}
-            className={
-              "ml-auto p-2 " +
-              (expanded ? "" : "animate-pulse")
-            }
-            onClick={() => setExpanded(!expanded)}
+          <button
+            tabIndex={0}
+            hidden={!children}
+            className={"ml-auto p-2 " + (expanded ? "" : "animate-pulse")}
+            onClick={e => {
+              setExpanded(!expanded)
+              e.target.blur()
+            }}
           >
-            {expanded ? "Hide " : "Show "}{detailsButton}
+            {expanded ? "Hide " : "Show "}
+            {detailsButton}
             <FontAwesomeIcon
               className={"" + (expanded ? "pr-1 transform rotate-180" : "pl-1")}
               size="1x"
