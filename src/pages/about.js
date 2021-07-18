@@ -54,9 +54,26 @@ const About = () => {
             <div className="max-w-prose">
               <h3 className="text-center">Hi! I am Konrad!</h3>
               <p>
-                I am most comfortable using Java, but depending on the problem
-                posed, I also use other technologies such as JavaScript (React,
-                Vue.js), Python, Bash, Kotlin. I am a big fan of clean code and
+                I have touched many technologies and languages in my life, but
+                Java is still my favorite. This may change, as I hear more and
+                more positive opinions about the Kotlin language lately, but I
+                haven't had the opportunity to use it in any serious project
+                yet. In general, I assume that it is more important to know what
+                needs to be done, and the implementation itself and the choice
+                of technology (i.e. how to do it) is a secondary issue (equally
+                important, but secondary).
+              </p>
+              <p>
+                I consider myself very flexible when it comes to choosing the
+                technology and the area in which I am supposed to work. In my
+                professional career I have dealt with backend, devops and
+                frontend. In the latter, I feel the least confident, but I'm
+                already catching up.
+              </p>
+              <p>
+                So far I have spent most of my time in multinational teams, so I
+                have no problem communicating in English on a daily basis. 
+                I am a big fan of clean code and
                 process automation. My heart bleeds when I see someone doing
                 manual work that can be scripted. Besides, I can prepare an
                 environment for application development (VDE, continuous
@@ -89,39 +106,87 @@ const About = () => {
             }
           >
             <Project
-              title={"Project #3"}
+              title={"Telco project"}
               duration={"2.5 year"}
-              keywords={["Java", "SIP", "Diameter"]}
+              keywords={[
+                "Java",
+                "Ansible",
+                "Vagrant",
+                "Docker",
+                "React",
+                "Spring Boot",
+                "Gradle",
+                "Maven",
+                "Linux",
+                "Bamboo",
+                "Jenkins",
+                "SVN",
+                "Git",
+                "Bash",
+                "SAFe",
+                "Jira",
+                "Confluence",
+              ]}
             >
-              A project for a telecommunications operator providing services for
-              several countries in Europe. As a team, we created IMS based{" "}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://en.wikipedia.org/wiki/Value-added_service"
-              >
-                Value-Added-Services
-              </a>{" "}
-              using SIP and Diameter protocols. Tests (especially functional)
-              were extremely important in the project and we spent a lot of time
-              on this topic.
+              <p>
+                A project for a telecommunications operator providing services
+                for several countries in Europe. As a team, we mainly created
+                IMS based{" "}
+                <a href="https://en.wikipedia.org/wiki/Value-added_service">
+                  Value-Added-Services
+                </a>{" "}
+                in Java. The project was very extensive and I had the chance to
+                work on things in many areas (frontend, backend, devops).
+              </p>
+              <p>
+                For a large part of the time, I was developing an application
+                for conducting functional tests using the SIP and Diameter
+                protocols (something like{" "}
+                <a href="https://gettaurus.org/">Taurus</a>/
+                <a href="https://www.postman.com/">Postman</a>) and it was used
+                by other dev-teams as well.
+              </p>
+              <p>
+                In addition, I also dealt with:
+                <ul>
+                  <li>configuration of CI/CD pipelines,</li>
+                  <li>preparation of virtual machines for developers,</li>
+                  <li>creation of Gradle plugins and Docker containers,</li>
+                  <li>configuration of project build,</li>
+                  <li>implementation of a dashboard React application,</li>
+                  <li>documentation configuration and writing.</li>
+                </ul>
+              </p>
+              <p>
+                We used the <a href="https://www.scaledagile.com/">SAFe</a>{" "}
+                framework in the organization and I am a{" "}
+                <a href="https://www.credly.com/badges/0ea2e835-2434-4900-a00d-d659cbcf9fca">
+                  Certified SAFe 5 Practitioner
+                </a>
+                .
+              </p>
             </Project>
             <Project
-              title={"Project #2"}
+              title={"Conversion project"}
               duration={"9 months"}
-              keywords={["Java", "Panther", "SQL"]}
+              keywords={["Java", "Panther", "SQL", "Git", "Jira"]}
             >
-              The aim of the project was to port a part of the ERP-like system
-              from ancient technology (Panther, good luck finding what it is) to
-              Java. I was a team leader in the project. The difficulty of this
-              work was the lack of documentation for the existing application. I
-              remember this project as a lesson. It taught me, above all, how
-              dangerous is technological debt and showed me live that when
-              deadlines are chasing, adding new programmers to the project is
-              the last nail in the coffin.
+              <p>
+                The aim of the project was to port a part of the ERP-like system
+                from ancient technology (Panther, good luck finding what it is)
+                to Java.
+              </p>
+              <p>
+                I was a team leader in the project. The difficulty of this work
+                was the lack of documentation for the existing application. I
+                remember this project as a lesson. It taught me, above all, how
+                dangerous is technological debt and showed me live that when
+                deadlines are chasing, adding new programmers to the project is
+                the last nail in the coffin.
+              </p>
             </Project>
             <Project
-              title={"Project #1"}
+              title={"Vehicle simulator project"}
               duration={"2 months"}
               keywords={[
                 "Java",
@@ -132,14 +197,18 @@ const About = () => {
                 "Scrum",
               ]}
             >
-              I was working on a vehicle simulator to test a platform that
-              collects real-time information from vehicle sensors. This
-              application was supposed to allow the user to manually draw the
-              route of the simulated vehicle and to mark events (such as:
-              detection of sign/pedestrian/slippery surface, or connection
-              problems) on the map. The drawn scenario was saved to a file and
-              then it could be used for a real-time simulation using the
-              protobuf protocol.
+              <p>
+                I was working on a vehicle simulator to test a platform that
+                collects real-time information from vehicle sensors.
+              </p>
+              <p>
+                The application was supposed to allow the user to manually draw
+                the route of the simulated vehicle and to mark events (such as:
+                detection of sign/pedestrian/slippery surface, or connection
+                problems) on the map. The drawn scenario was saved to a file and
+                then it could be used for a real-time simulation using the
+                protobuf protocol.
+              </p>
             </Project>
             <Project
               title={"Internship"}
@@ -154,22 +223,22 @@ const About = () => {
                 "SoapUI",
               ]}
             >
-              I created a website that displays the weather forecast. The scope
-              of work included design, implementation and tests (unit and
-              functional). The backend was an REST API based on the existing
-              service -{" "}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.wunderground.com/"
-              >
-                Wunderground
-              </a>
-              . This site's API was not entirely consistent and had some design
-              flaws. My job was to improve this API by making an adapter. As
-              part of the exercises backend was written in both Jersey and
-              Vert.x. Due to the limited number of queries to Wunderground API,
-              the cache mechanism has also been implemented.
+              <p>
+                I created a website that displays the weather forecast. The
+                scope of work included design, implementation and tests (unit
+                and functional).
+              </p>
+              <p>
+                The backend was an REST API based on the existing service -{" "}
+                <a href="https://www.wunderground.com/">Wunderground</a>. This
+                site's API was not entirely consistent and had some design
+                flaws. My job was to improve this API by making an adapter.
+              </p>
+              <p>
+                As part of the exercises backend was written in both Jersey and
+                Vert.x. Due to the limited number of queries to Wunderground
+                API, the cache mechanism has also been implemented.
+              </p>
             </Project>
           </Card>
         </div>
@@ -198,26 +267,38 @@ const About = () => {
                 </span>
                 <div>
                   Member of:{" "}
-                  <ul className="pt-1">
+                  <ol className="pt-1">
                     <li>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://samorzad.pwr.edu.pl/w8"
-                      >
+                      <a href="https://samorzad.pwr.edu.pl/w8">
                         Faculty Council of the Student Government
                       </a>
+                      <ul>
+                        <li>organization of special events for students</li>
+                        <li>help and problem solving for students</li>
+                        <li>
+                          training in the field of co-financing for science
+                          circles
+                        </li>
+                      </ul>
                     </li>
                     <li>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://www.facebook.com/ASI.PWr"
-                      >
+                      <a href="https://www.facebook.com/ASI.PWr">
                         The Academic IT Association
                       </a>
+                      <ul>
+                        <li>
+                          development of{" "}
+                          <a href="https://github.com/kkdrz/SesjaLinuksowa">
+                            an android application
+                          </a>{" "}
+                          for{" "}
+                          <a href="https://www.facebook.com/events/1042231065818542/">
+                            the 13th Linux session
+                          </a>
+                        </li>
+                      </ul>
                     </li>
-                  </ul>
+                  </ol>
                 </div>
               </div>
             </div>
