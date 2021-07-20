@@ -3,14 +3,38 @@ module.exports = {
     title: `Konrad Drozd: Blog`,
     author: {
       name: `Konrad Drozd`,
-      summary: `who wants to learn every skill, but his worst enemy is time.`,
+      summary: `Fullstack Software Developer`,
+      mail: "konrad@kdrozd.pl"
     },
     description: ``,
     siteUrl: `https://kdrozd.pl`,
-    social: {
-      instagram: `kdrozd`,
-      github: `kkdrz`,
-    },
+    social: [
+      {
+        title: "Facebook",
+        url: "https://www.facebook.com/drozdkonrad",
+        icon: ["fab", "facebook-square"],
+      },
+      {
+        title: "Github",
+        href: "https://github.com/kkdrz",
+        icon: ["fab", "github-square"],
+      },
+      {
+        title: "LinkedIn",
+        href: "https://www.linkedin.com/in/konrad-drozd-3a1021121/",
+        icon: ["fab", "linkedin"],
+      },
+      {
+        title: "Instagram",
+        href: "https://www.instagram.com/konradrzd/",
+        icon: ["fab", "instagram-square"],
+      },
+      {
+        title: "E-mail",
+        href: "mailto:konrad@kdrozd.pl",
+        icon: ["fas", "envelope"],
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-postcss`,
@@ -150,9 +174,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingIds: [
-          "UA-184638286-1", 
-        ],
+        trackingIds: ["UA-184638286-1"],
       },
     },
     `gatsby-plugin-react-helmet`,

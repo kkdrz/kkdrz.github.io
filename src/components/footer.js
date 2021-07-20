@@ -1,24 +1,22 @@
 import * as React from "react"
-import {
-  faFacebookSquare,
-  faGithubSquare,
-  faLinkedin,
-  faInstagramSquare,
-} from "@fortawesome/free-brands-svg-icons"
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { OutboundLink } from "gatsby-plugin-google-gtag"
+import SocialSquare from "./SocialSquare"
+import { graphql, useStaticQuery } from "gatsby"
 
 const Footer = () => {
-  const SocialSquare = ({ href, icon, title }) => (
-    <OutboundLink
-      className="text-gray-100 p-2 hover:text-blue-100"
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <FontAwesomeIcon title={title} size="3x" icon={icon} />
-    </OutboundLink>
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            social {
+              title
+              url
+              icon
+            }
+          }
+        }
+      }
+    `
   )
 
   return (
@@ -32,31 +30,15 @@ const Footer = () => {
             You can find me there:
           </div>
           <div>
-            <SocialSquare
-              title="Facebook"
-              href="https://www.facebook.com/drozdkonrad"
-              icon={faFacebookSquare}
-            />
-            <SocialSquare
-              title="Github"
-              href="https://github.com/kkdrz"
-              icon={faGithubSquare}
-            />
-            <SocialSquare
-              title="LinkedIn"
-              href="https://www.linkedin.com/in/konrad-drozd-3a1021121/"
-              icon={faLinkedin}
-            />
-            <SocialSquare
-              title="Instagram"
-              href="https://www.instagram.com/konradrzd/"
-              icon={faInstagramSquare}
-            />
-            <SocialSquare
-              title="E-mail"
-              href="mailto:konrad@kdrozd.pl"
-              icon={faEnvelope}
-            />
+            {site.siteMetadata.social?.map((social, i) => (
+              <SocialSquare
+                key={i}
+                className="text-gray-100 p-2 hover:text-blue-100"
+                title={social.title}
+                href={social.href}
+                icon={social.icon}
+              ></SocialSquare>
+            ))}
           </div>
         </div>
       </div>

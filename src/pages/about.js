@@ -8,8 +8,24 @@ import Project from "../components/about/project"
 
 import myPhoto from "../images/konrad_drozd.jpg"
 import myPhotoSmile from "../images/konrad_drozd_smile.jpg"
+import { graphql, useStaticQuery } from "gatsby"
 
 const About = () => {
+  const {
+    site: { siteMetadata },
+  } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            author {
+              mail
+            }
+          }
+        }
+      }
+    `
+  )
   const [replaceImage, setReplaceImage] = useState(false)
 
   const howLongInCurrentJob = startDate => {
@@ -54,31 +70,35 @@ const About = () => {
             <div className="max-w-prose">
               <h3 className="text-center">Hi! I am Konrad!</h3>
               <p>
-                I have touched many technologies and languages in my life, but
-                Java is still my favorite. This may change, as I hear more and
-                more positive opinions about the Kotlin language lately, but I
-                haven't had the opportunity to use it in any serious project
-                yet. In general, I assume that it is more important to know what
-                needs to be done, and the implementation itself and the choice
-                of technology (i.e. how to do it) is a secondary issue (equally
-                important, but secondary).
+                I have touched many technologies and languages, but in the Java
+                ecosystem, I feel at home. I consider myself very flexible when
+                it comes to choosing the technology and the area in which I am
+                supposed to work. In my professional career I have dealt with
+                backend, devops and frontend. In the latter, I feel the least
+                confident, but I'm already catching up.
               </p>
-              <p>
-                I consider myself very flexible when it comes to choosing the
-                technology and the area in which I am supposed to work. In my
-                professional career I have dealt with backend, devops and
-                frontend. In the latter, I feel the least confident, but I'm
-                already catching up.
-              </p>
+
               <p>
                 So far I have spent most of my time in multinational teams, so I
-                have no problem communicating in English on a daily basis. 
-                I am a big fan of clean code and
-                process automation. My heart bleeds when I see someone doing
-                manual work that can be scripted. Besides, I can prepare an
-                environment for application development (VDE, continuous
-                integration / deployment). I feel comfortable working with Linux
-                systems.
+                have no problem communicating in English on a daily basis. I
+                have completed the SAFe framework course and used it at work, so
+                I know what it is like to work in large agile projects. I know
+                many good programming practices, design patterns, software
+                development techniques. Clean code, TDD, process automation,
+                Linux environment are my bread and butter.
+              </p>
+
+              <p>
+                After work, I often do what I do at work - I program (my own
+                toys) and discover new interesting technologies 🙂. Apart from
+                sitting at the computer, I really enjoy being physically active,
+                especially with other people. I like to try various activities,
+                but volleyball is something that has been with me for years. I
+                often pick up a new topic, unknown to me, explore it over the
+                next few weeks and try to apply the acquired knowledge in
+                practice. Some of the recent ones are: plant lighting, stock
+                market and investing, hairdressing, smart home, chess, computer
+                graphics, blogging. The topics usually are very diverse 🙂
               </p>
             </div>
           </div>
@@ -146,17 +166,16 @@ const About = () => {
                 <a href="https://www.postman.com/">Postman</a>) and it was used
                 by other dev-teams as well.
               </p>
-              <p>
-                In addition, I also dealt with:
-                <ul>
-                  <li>configuration of CI/CD pipelines,</li>
-                  <li>preparation of virtual machines for developers,</li>
-                  <li>creation of Gradle plugins and Docker containers,</li>
-                  <li>configuration of project build,</li>
-                  <li>implementation of a dashboard React application,</li>
-                  <li>documentation configuration and writing.</li>
-                </ul>
-              </p>
+              <p>In addition, I also dealt with:</p>
+              <ul>
+                <li>configuration of CI/CD pipelines,</li>
+                <li>preparation of virtual machines for developers,</li>
+                <li>creation of Gradle plugins and Docker containers,</li>
+                <li>configuration of project build,</li>
+                <li>implementation of a dashboard React application,</li>
+                <li>documentation configuration and writing.</li>
+              </ul>
+
               <p>
                 We used the <a href="https://www.scaledagile.com/">SAFe</a>{" "}
                 framework in the organization and I am a{" "}
@@ -304,12 +323,15 @@ const About = () => {
             </div>
           </Card>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-center">
           <h2 className="text-center">Contact</h2>
           <p>
-            The best chance of reading your message is when you send me an
-            e-mail - <a href="mailto:konrad@kdrozd.pl">konrad@kdrozd.pl</a> -
-            but feel free to contact me using any of the sites in the footer ;)
+            If you want to know more about me, check the services from the
+            footer. <br />
+            If you want to contact me, e-mail is the best choice:{" "}
+            <a href={"mailto:" + siteMetadata.author?.mail}>
+              {siteMetadata.author?.mail}
+            </a>
           </p>
         </div>
       </div>
