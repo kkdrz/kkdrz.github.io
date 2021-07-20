@@ -1,4 +1,6 @@
 {
   "main.js": "render-page.js",
-  "render-page.js.map": "render-page.js.map"
+  "render-page.js.map": "render-page.js.map",
+  "static/konrad_drozd.jpg": "static/konrad_drozd-d089704d83aabd7324d6a3d4e1120680.jpg",
+  "static/konrad_drozd_smile.jpg": "static/konrad_drozd_smile-d1d4ae0525ef450ca4454ac90dd53844.jpg"
 }
