@@ -16,22 +16,22 @@ module.exports = {
       },
       {
         title: "Github",
-        href: "https://github.com/kkdrz",
+        url: "https://github.com/kkdrz",
         icon: ["fab", "github-square"],
       },
       {
         title: "LinkedIn",
-        href: "https://www.linkedin.com/in/konrad-drozd-3a1021121/",
+        url: "https://www.linkedin.com/in/konrad-drozd-3a1021121/",
         icon: ["fab", "linkedin"],
       },
       {
         title: "Instagram",
-        href: "https://www.instagram.com/konradrzd/",
+        url: "https://www.instagram.com/konradrzd/",
         icon: ["fab", "instagram-square"],
       },
       {
         title: "E-mail",
-        href: "mailto:konrad@kdrozd.pl",
+        url: "mailto:konrad@kdrozd.pl",
         icon: ["fas", "envelope"],
       },
     ],
