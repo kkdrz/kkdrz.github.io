@@ -35,7 +35,7 @@ const Footer = () => {
                 key={i}
                 className="text-gray-100 p-2 hover:text-blue-100"
                 title={social.title}
-                href={social.href}
+                href={social.url}
                 icon={social.icon}
               ></SocialSquare>
             ))}
