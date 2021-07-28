@@ -30,8 +30,8 @@ const About = () => {
 
   const howLongInCurrentJob = startDate => {
     const diffTime = new Date().getTime() - startDate.getTime()
-    const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30))
-    const diffYears = Math.ceil(diffMonths / 12)
+    const diffMonths = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 30))
+    const diffYears = Math.floor(diffMonths / 12)
 
     let timeDescription = ""
 
