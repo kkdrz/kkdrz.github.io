@@ -155,6 +155,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
+            title: "Konrad Drozd Blog RSS Feed"
           },
         ],
       },
