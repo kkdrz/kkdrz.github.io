@@ -91,15 +91,13 @@ class TypingEffect extends React.Component {
 
   enableCursor(lineNumber) {
     let cursors = this.state.cursors
-    let cursor = { ...cursors[lineNumber], enabled: true }
-    cursors[lineNumber] = cursor
+    cursors[lineNumber] = {...cursors[lineNumber], enabled: true}
     this.setState({ cursors })
   }
 
   disableCursor(lineNumber) {
-    let cursors = [...this.state.cursors]
-    let cursor = { ...cursors[lineNumber], enabled: false }
-    cursors[lineNumber] = cursor
+    let cursors = this.state.cursors
+    cursors[lineNumber] = {...cursors[lineNumber], enabled: false}
     this.setState({ cursors })
   }
 
