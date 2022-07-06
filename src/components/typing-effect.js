@@ -72,7 +72,7 @@ class TypingEffect extends React.Component {
           resolve()
         } else {
           let lines = this.state.lines
-          lines[lineNumber] = lines[lineNumber].substr(
+          lines[lineNumber] = lines[lineNumber].substring(
             0,
             this.state.lines[lineNumber].length - 1
           )
