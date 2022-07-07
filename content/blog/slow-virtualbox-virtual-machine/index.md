@@ -4,8 +4,8 @@ date: "2022-07-06T17:45:11"
 featuredImage: "./featured.png"
 ---
 
-If your virtual machine hosted on Windows is slow or doesn't start at all, 
-then this article is for you.
+If you use Virtualbox on Windows and your virtual machine is slow 
+or doesn't start at all, then this article is for you.
 
 Most of the time I work on a virtual machine with Linux system. 
 Some time ago I reinstalled my host Windows system and had to set up the 
@@ -25,7 +25,7 @@ machine is running in slow mode.
 The correct icon, indicating that `VT-x/AMD-V` support is in use, 
 is the letter `V` on a blue background/chip 
 
-![VT-x/AMD-V](images/correct_icon.png "Open image")
+![Wrong and Correct Icon](images/icons_compare.png "Open image")
 
 If you can see the correct icon, but your virtual machine is slow, 
 check that you have allocated the correct number of CPUs, 
@@ -183,11 +183,11 @@ that I want to disable the features with the Windows button
 every time I turn on the computer. But at least everything works fine.
 
 ## References
-[Virtualization applications don't work together with Hyper-V, Device Guard, and Credential Guard][microsoft-docs-troubleshoot]  
-[Using Hyper-V with Oracle VM VirtualBox][virtualbox-docs-hyperv]  
-[VMware Workstation and Device/Credential Guard are not compatible](https://kb.vmware.com/s/article/2146361)  
-[Disable Windows Defender Credential Guard](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage#disable-windows-defender-credential-guard)  
-[Task - Create to Run a Program at Startup and Log On](https://www.sevenforums.com/tutorials/67503-task-create-run-program-startup-log.html)
+- [Virtualization applications don't work together with Hyper-V, Device Guard, and Credential Guard][microsoft-docs-troubleshoot]  
+- [Using Hyper-V with Oracle VM VirtualBox][virtualbox-docs-hyperv]  
+- [VMware Workstation and Device/Credential Guard are not compatible](https://kb.vmware.com/s/article/2146361)  
+- [Disable Windows Defender Credential Guard](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage#disable-windows-defender-credential-guard)  
+- [Task - Create to Run a Program at Startup and Log On](https://www.sevenforums.com/tutorials/67503-task-create-run-program-startup-log.html)
 
 [virtualbox-docs-hyperv]: https://docs.oracle.com/en/virtualization/virtualbox/6.0/admin/hyperv-support.html
 [microsoft-docs-troubleshoot]: https://docs.microsoft.com/en-us/troubleshoot/windows-client/application-management/virtualization-apps-not-work-with-hyper-v
