@@ -12,6 +12,10 @@ Some time ago I reinstalled my host Windows system and had to set up the
 virtual machine from scratch. Unfortunately, newer versions of Windows 
 and my company group policy caused a lot of problems.
 
+## Table of Contents
+```toc
+```
+
 ## Symptoms
 
 If you see a green turtle icon in the lower right corner 
@@ -23,12 +27,28 @@ is the letter `V` on a blue background/chip
 
 ![VT-x/AMD-V](images/correct_icon.png "Open image")
 
+If you can see the correct icon, but your virtual machine is slow, 
+check that you have allocated the correct number of CPUs, 
+RAM and video memory to it.
 
-## The Root Cause
+## Cause
 
+According to [Microsoft's documentation][microsoft-docs-troubleshoot], this behavior occurs by design:
 
+>Many virtualization applications depend on hardware virtualization 
+>extensions that are available on most modern processors. 
+>It includes Intel VT-x and AMD-V. Only one software component 
+>can use this hardware at a time. The hardware cannot be shared
+>between virtualization applications.
+
+Virtualbox can be used on a Windows host where Hyper-V is running, 
+but very slowly and this is an experimental feature. 
+[In the docs][virtualbox-docs-hyperv] there is a note that
+host systems using this feature might experience significant Virtualbox performance degradation.
 
 ## Solution
+
+The solution is to disable all Windows services that depend on VT-x/AMD-V.
 
 Below are the steps I had to follow to get everything working.  
 Hopefully they will help you too.
@@ -36,7 +56,7 @@ Hopefully they will help you too.
 ***Note:** It is recommended to back up your data and to create 
 system restore points, before changing anything!*
 
-### Disable Incompatible Windows Features
+### 1. Disable Incompatible Windows Features
 
 Go to `Turn Windows features on or off` - you can search that from start menu, 
 or find it in `Control Panel`.
@@ -52,7 +72,7 @@ Disable (untick) following services:
 
 ![Turn Windows features on or off](images/windows_features.png "Open image")
 
-### Disable Hypervisor
+### 2. Disable Hypervisor
 
 Start `Command Prompt` as administrator and run:
 
@@ -60,7 +80,7 @@ Start `Command Prompt` as administrator and run:
    bcdedit /set hypervisorlaunchtype off
    ```
 
-### Turn off Virtualization-Based Security
+### 3. Disable Device Guard
 
 1. Start `Edit group policy` - `gpedit`
 2. Go to `Local Computer Policy` > `Computer Configuration` > `Administrative Templates` > `System`
@@ -70,14 +90,8 @@ Start `Command Prompt` as administrator and run:
    ![Edit Group Policy](images/gpedit_device_guard.png "Open image")
 
 5. Close `Group Policy Editor`
-6. Start `Command Prompt` as administrator and run:
 
-    ```shell
-    bcdedit /set {0cb3b571-2f2e-4343-a879-d86a476d7215} loadoptions DISABLE-LSA-ISO,DISABLE-VBS
-    bcdedit /set vsmlaunchtype off
-    ```
-
-### Disable Windows Defender Credential Guard
+### 4. Disable Windows Defender Credential Guard
 
 1. Start `Command Prompt` as administrator and run:
 
@@ -97,7 +111,16 @@ Start `Command Prompt` as administrator and run:
     mountvol X: /d
     ```
 
-### Restart PC and confirm changes
+### 5. Disable Virtualization-Based Security
+
+1. Start `Command Prompt` as administrator and run:
+
+    ```shell
+    bcdedit /set {0cb3b571-2f2e-4343-a879-d86a476d7215} loadoptions DISABLE-LSA-ISO,DISABLE-VBS
+    bcdedit /set vsmlaunchtype off
+    ```
+
+### 6. Restart PC and confirm changes
 
 After a reboot, before the system boots, you will be asked 
 whether to disable `Windows Defender Credential Guard` and 
@@ -105,7 +128,7 @@ whether to disable `Windows Defender Credential Guard` and
 
 <u>*You must confirm everything with the Windows button.*</u>
 
-### Set up script to fix things after each reboot (optional)
+### 7. Set up script to fix things after each reboot (optional)
 
 Unfortunately, after several reboots, my settings would reset and the problem would return. 
 I suspect this is due to the fact that my computer is connected to a corporate domain 
@@ -159,8 +182,12 @@ The disadvantage of this solution is that I have to confirm
 that I want to disable the features with the Windows button 
 every time I turn on the computer. But at least everything works fine.
 
-## References:
-
+## References
+[Virtualization applications don't work together with Hyper-V, Device Guard, and Credential Guard][microsoft-docs-troubleshoot]  
+[Using Hyper-V with Oracle VM VirtualBox][virtualbox-docs-hyperv]  
 [VMware Workstation and Device/Credential Guard are not compatible](https://kb.vmware.com/s/article/2146361)  
 [Disable Windows Defender Credential Guard](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage#disable-windows-defender-credential-guard)  
 [Task - Create to Run a Program at Startup and Log On](https://www.sevenforums.com/tutorials/67503-task-create-run-program-startup-log.html)
+
+[virtualbox-docs-hyperv]: https://docs.oracle.com/en/virtualization/virtualbox/6.0/admin/hyperv-support.html
+[microsoft-docs-troubleshoot]: https://docs.microsoft.com/en-us/troubleshoot/windows-client/application-management/virtualization-apps-not-work-with-hyper-v
