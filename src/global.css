@@ -131,3 +131,13 @@ a:focus {
 .gatsby-highlight {
   @apply text-sm mb-4;
 }
+
+/* Table of Contents */
+
+.table-of-contents li {
+  @apply mb-0
+}
+
+.table-of-contents ul {
+  list-style-type: none;
+}

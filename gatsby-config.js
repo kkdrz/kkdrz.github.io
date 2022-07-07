@@ -70,6 +70,17 @@ module.exports = {
             },
           },
           {
+            resolve: `gatsby-remark-table-of-contents`,
+            options: {
+              exclude: "Table of Contents",
+              tight: true,
+              ordered: false,
+              fromHeading: 1,
+              toHeading: 3,
+              className: "table-of-contents"
+            },
+          },
+          {
             resolve: `gatsby-remark-prismjs`,
             options: {
               showLineNumbers: true,
@@ -81,6 +92,7 @@ module.exports = {
               },
             },
           },
+          `gatsby-remark-autolink-headers`,
           `gatsby-plugin-fontawesome-css`,
           `gatsby-remark-external-links`,
           `gatsby-remark-copy-linked-files`,
