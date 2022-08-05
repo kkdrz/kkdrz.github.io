@@ -1,6 +1,6 @@
 ---
-title: How To Perform a Partial Update (Patch) With Explicit Null Values?
-date: "2021-02-07T23:46:37.121Z"
+title: Partial Update (PATCH) With Explicit Null Values
+date: "2022-08-05T20:20:37.121Z"
 excerpt: In this article, I will show you, how to perform a partial update with explicit null values using JsonNullable and mapstruct.
 featuredImage: "./featured.jpg"
 ---
@@ -12,12 +12,21 @@ featuredImage: "./featured.jpg"
 [JSON Merge Patch (RFC 7386)]: https://tools.ietf.org/html/rfc7386
 [OpenAPITools]: https://github.com/OpenAPITools
 [modelmapper]: http://modelmapper.org/
-
-## Overview
+[@Condition]: https://mapstruct.org/news/2021-07-18-mapstruct-1_5_0_Beta1-is-out/#conditional-mapping
+[mapstruct-1.4.1]: https://github.com/kkdrz/blog-examples/tree/jsonnullable-mapstruct-1.4.1/jsonnullable-with-mapstruct
 
 In this article, I will show you, how to perform a partial update with explicit `null` values using [JsonNullable] and [mapstruct]. 
 The example is available on [Github][repository]. 
 Below, only the necessary code snippets are presented.
+
+**05.08.2022:** *I've updated the article, because [mapstruct] `1.5.2.Final` 
+makes it much easier, thanks to [@Condition] feature. 
+If you want to know how to do it with `1.4.1.Final`, 
+check out [this branch][mapstruct-1.4.1].*
+
+## Table of Contents
+```toc
+```
 
 ## The Idea of Partial Updates
 
@@ -113,7 +122,7 @@ For all this to work we need to configure some dependencies. I used `Maven` but 
     <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
-        <version>1.4.1.Final</version>
+        <version>1.5.2.Final</version>
     </dependency>
 
 </dependencies>
@@ -254,32 +263,36 @@ import org.mapstruct.*;
 import pl.kdrozd.examples.dto.ProductDTO;
 import pl.kdrozd.examples.model.Product;
 
-@Mapper(componentModel = "spring", 
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        componentModel = "spring")
 public interface ProductMapper {
 
+    @Mapping(target = "id", ignore = true)
     Product map(ProductDTO entity);
 
     ProductDTO map(Product entity);
 
     @InheritConfiguration
-    @Mapping(target = "id", ignore = true)
     void update(ProductDTO update, @MappingTarget Product destination);
 
 }
 ```
 
-Unfortunately, `mapstruct` has no built-in support for the `JsonNullable` class and when trying to compile the project we will get the error:
+Unfortunately, `mapstruct` has no built-in support for the `JsonNullable` class 
+and when trying to compile the project we will get the error:
 
 ```
 java: Can't map property "JsonNullable<string> description" to "String description". Consider to declare/implement a mapping method: "String map(JsonNullable<string> value)".
 ```
 
-Maybe my solution is not the best and has its drawbacks, but it works and that's the most important thing for me. To get rid of this error, we need to define a separate mapper for the `JsonNullable` class and mark each field that should use it. So we get:
+To get rid of this error, we need to define a separate mapper 
+for the `JsonNullable` class. 
+So we get:
 
 ```java
 package pl.kdrozd.examples.mapper;
 
+import org.mapstruct.Condition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -287,18 +300,18 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @Mapper(componentModel = "spring")
 public interface JsonNullableMapper {
 
-    @Named("unwrap")
-    default String unwrap(JsonNullable<String> nullable) {
-        return nullable.orElse(null);
+    default <T> JsonNullable<T> wrap(T entity) {
+        return JsonNullable.of(entity);
     }
 
-    @Named("wrap")
-    default JsonNullable<String> wrap(String entity) {
-        return JsonNullable.of(entity);
+    default <T> T unwrap(JsonNullable<T> jsonNullable) {
+        return jsonNullable == null ? null : jsonNullable.orElse(null);
     }
 
 }
 ```
+
+Then you need to instruct `ProductMapper` to use your new `JsonNullableMapper`:
 
 ```java
 package pl.kdrozd.examples.mapper;
@@ -307,38 +320,38 @@ import org.mapstruct.*;
 import pl.kdrozd.examples.dto.ProductDTO;
 import pl.kdrozd.examples.model.Product;
 
-@Mapper(uses = JsonNullableMapper.class, 
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, 
+@Mapper(uses = JsonNullableMapper.class,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         componentModel = "spring")
 public interface ProductMapper {
 
-    @Mapping(source = "description", target = "description", qualifiedByName = "unwrap")
-    @Mapping(source = "manufacturer", target = "manufacturer", qualifiedByName = "unwrap")
+    @Mapping(target = "id", ignore = true)
     Product map(ProductDTO entity);
 
-    @Mapping(source = "description", target = "description", qualifiedByName = "wrap")
-    @Mapping(source = "manufacturer", target = "manufacturer", qualifiedByName = "wrap")
     ProductDTO map(Product entity);
 
     @InheritConfiguration
-    @Mapping(target = "id", ignore = true) // we do not allow updating 'id'
     void update(ProductDTO update, @MappingTarget Product destination);
-
 }
 ```
 
-Now the project should compile and mappers sources are generated into `target\generated-sources\annotations` directory.
+Now the project should compile and mappers sources 
+are generated into `target\generated-sources\annotations` directory.
 
 ```java
 package pl.kdrozd.examples.mapper;
 
-import org.openapitools.jackson.nullable.JsonNullable;
+import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.kdrozd.examples.dto.ProductDTO;
 import pl.kdrozd.examples.model.Product;
 
-// generated by mapstruct
+@Generated(
+        value = "org.mapstruct.ap.MappingProcessor",
+        date = "2022-08-05T17:54:15+0000",
+        comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.15 (Private Build)"
+)
 @Component
 public class ProductMapperImpl implements ProductMapper {
 
@@ -351,19 +364,12 @@ public class ProductMapperImpl implements ProductMapper {
             return null;
         }
 
-        String description = null;
-        String manufacturer = null;
-        Long id = null;
-        String name = null;
-        Integer quantity = null;
+        Product product = new Product();
 
-        description = jsonNullableMapper.unwrap( entity.getDescription() );
-        manufacturer = jsonNullableMapper.unwrap( entity.getManufacturer() );
-        id = entity.getId();
-        name = entity.getName();
-        quantity = entity.getQuantity();
-
-        Product product = new Product( id, name, quantity, description, manufacturer );
+        product.setName( entity.getName() );
+        product.setQuantity( entity.getQuantity() );
+        product.setDescription( jsonNullableMapper.unwrap( entity.getDescription() ) );
+        product.setManufacturer( jsonNullableMapper.unwrap( entity.getManufacturer() ) );
 
         return product;
     }
@@ -374,21 +380,13 @@ public class ProductMapperImpl implements ProductMapper {
             return null;
         }
 
-        JsonNullable<String> description = null;
-        JsonNullable<String> manufacturer = null;
-        long id = 0L;
-        String name = null;
-        Integer quantity = null;
+        ProductDTO productDTO = new ProductDTO();
 
-        description = jsonNullableMapper.wrap( entity.getDescription() );
-        manufacturer = jsonNullableMapper.wrap( entity.getManufacturer() );
-        if ( entity.getId() != null ) {
-            id = entity.getId();
-        }
-        name = entity.getName();
-        quantity = entity.getQuantity();
-
-        ProductDTO productDTO = new ProductDTO( id, name, quantity, description, manufacturer );
+        productDTO.setId( entity.getId() );
+        productDTO.setName( entity.getName() );
+        productDTO.setQuantity( entity.getQuantity() );
+        productDTO.setDescription( jsonNullableMapper.wrap( entity.getDescription() ) );
+        productDTO.setManufacturer( jsonNullableMapper.wrap( entity.getManufacturer() ) );
 
         return productDTO;
     }
@@ -399,20 +397,17 @@ public class ProductMapperImpl implements ProductMapper {
             return;
         }
 
-        if ( update.getDescription() != null ) {
-            destination.setDescription( jsonNullableMapper.unwrap( update.getDescription() ) );
-        }
-        if ( update.getManufacturer() != null ) {
-            destination.setManufacturer( jsonNullableMapper.unwrap( update.getManufacturer() ) );
-        }
-        if ( update.getId() != null ) {
-            destination.setId( update.getId() );
-        }
         if ( update.getName() != null ) {
             destination.setName( update.getName() );
         }
         if ( update.getQuantity() != null ) {
             destination.setQuantity( update.getQuantity() );
+        }
+        if ( update.getDescription() != null ) {
+            destination.setDescription( jsonNullableMapper.unwrap( update.getDescription() ) );
+        }
+        if ( update.getManufacturer() != null ) {
+            destination.setManufacturer( jsonNullableMapper.unwrap( update.getManufacturer() ) );
         }
     }
 }
@@ -479,7 +474,16 @@ void should_not_update_any_field_in_product() {
 }
 ```
 
-All of our tests work except test number 4. It looks like our mapper does not handle `JsonNullable.undefined()` properly. The problem is that mapper assumed that if the field is not `null` it should update it. In our case `JsonNullable.undefined()` is not `null` indeed, but it also has no value present, so it evaluates to `null` anyway. In the case of the `JsonNullable` field, mapper should check whether the value `isPresent()`.
+![Failed test](images/failed_4th_test.png "Open image")
+
+All of our tests work **except test number 4**. 
+It looks like our mapper does not handle `JsonNullable.undefined()` properly. 
+The problem is that mapper assumed that if the field is not `null` 
+it should update it. 
+In our case `JsonNullable.undefined()` is not `null` indeed, 
+but it also has no value present, so it evaluates to `null` anyway. 
+In the case of the `JsonNullable` field, mapper should check whether 
+the value `isPresent()`.
 
 So instead of:
 
@@ -497,46 +501,48 @@ if ( update.getDescription() != null && update.getDescription().isPresent()) {
 }
 ```
 
-Fortunately, `mapstruct` can do this very easily. If it detects that there is a method with a signature: `boolean has<fieldName>()` for the field it maps, it will use this method instead of a `null` check. So we need to add those methods for each `JsonNullable` field in `ProductDTO`:
+Fortunately, `mapstruct` can do this very easily. 
+We just need to create a new method annotated with [@Condition]
+in our `JsonNullableMapper`:
 
 ```java
-package pl.kdrozd.examples.dto;
+package pl.kdrozd.examples.mapper;
 
+import org.mapstruct.Condition;
+import org.mapstruct.Mapper;
+import org.mapstruct.Named;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import java.util.Objects;
+@Mapper(componentModel = "spring")
+public interface JsonNullableMapper {
 
-public class ProductDTO {
-
-    private Long id;
-    private String name;
-    private Integer quantity;
-    private JsonNullable<String> description;
-    private JsonNullable<String> manufacturer;
-
-    public boolean hasDescription() {
-        return description != null && description.isPresent();
+    default <T> JsonNullable<T> wrap(T entity) {
+        return JsonNullable.of(entity);
     }
-    
-    public boolean hasManufacturer() {
-        return manufacturer != null && manufacturer.isPresent();
+
+    default <T> T unwrap(JsonNullable<T> jsonNullable) {
+        return jsonNullable == null ? null : jsonNullable.orElse(null);
     }
+
+    /**
+     * Checks whether nullable parameter was passed explicitly.
+     * @return true if value was set explicitly, false otherwise
+     */
+    @Condition
+    default <T> boolean isPresent(JsonNullable<T> nullable) {
+        return nullable != null && nullable.isPresent();
+    }
+}
+
 ```
 
 `Mapstruct` generated exactly what we need and now the 4th test passes.
 
 ```java
-@Override //generated by mapstruct
+@Override // generated by mapstruct
 public void update(ProductDTO update, Product destination) {
     if ( update == null ) {
         return;
-    }
-
-    if ( update.hasDescription() ) {
-         destination.setDescription( jsonNullableMapper.unwrap( update.getDescription() ) );
-    }
-    if ( update.hasManufacturer() ) {
-        destination.setManufacturer( jsonNullableMapper.unwrap( update.getManufacturer() ) );
     }
     if ( update.getName() != null ) {
         destination.setName( update.getName() );
@@ -544,11 +550,18 @@ public void update(ProductDTO update, Product destination) {
     if ( update.getQuantity() != null ) {
         destination.setQuantity( update.getQuantity() );
     }
+    if ( jsonNullableMapper.isPresent( update.getDescription() ) ) {
+        destination.setDescription( jsonNullableMapper.unwrap( update.getDescription() ) );
+    }
+    if ( jsonNullableMapper.isPresent( update.getManufacturer() ) ) {
+        destination.setManufacturer( jsonNullableMapper.unwrap( update.getManufacturer() ) );
+    }
 }
 ```
 
 ## Summary
 
-In this article, I have presented you how to implement a partial update with `JsonNullable` and `mapstruct`. The source code can be found on my [Github][repository].
+In this article, I have presented you how to implement a partial update 
+with `JsonNullable` and `mapstruct`.  
 
-This approach has a few drawbacks, but it's the best method I know so far. If you know better solutions, I will be happy to find out about them!
+The source code can be found on my [Github][repository].
