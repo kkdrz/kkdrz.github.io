@@ -24,8 +24,8 @@ const Card = ({
         {image}
         <div className="flex flex-row w-full ml-8">
           <div className="flex flex-col">
-            <span className="font-semibold text-lg">{mainTitle}</span>
-            <span className="italic text-sm text-gray-500">{subTitle}</span>
+            <span className="font-semibold text-lg" dangerouslySetInnerHTML={{__html: mainTitle}}></span>
+            <span className="italic text-sm text-gray-500 " dangerouslySetInnerHTML={{__html: subTitle}}></span>
           </div>
 
           <button
