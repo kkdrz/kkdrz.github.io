@@ -47,10 +47,10 @@ const About = () => {
     }
 
     if (timeDescription.length !== 0) {
-      return "(" + timeDescription + ")"
+      return timeDescription
     }
 
-    return "(just started)"
+    return "just started"
   }
 
   return (
@@ -81,7 +81,7 @@ const About = () => {
               <p>
                 So far I have spent most of my time in multinational teams, so I
                 have no problem communicating in English on a daily basis. I
-                have completed the SAFe framework course and used it at work, so
+                have completed the SAFe (Scaled Agile Framework) course and used it at work, so
                 I know what it is like to work in large agile projects. I know
                 many good programming practices, design patterns, software
                 development techniques. Clean code, TDD, process automation,
@@ -96,9 +96,9 @@ const About = () => {
                 but volleyball is something that has been with me for years. I
                 often pick up a new topic, unknown to me, explore it over the
                 next few weeks and try to apply the acquired knowledge in
-                practice. Some of the recent ones are: plant lighting, stock
-                market and investing, hairdressing, smart home, chess, computer
-                graphics, blogging. The topics usually are very diverse 🙂
+                practice. Some of the recent ones are: electronics repair, car mechanics,
+                plant lighting, stock market and investing, hairdressing, smart home,
+                chess, computer graphics, blogging. The topics usually are very diverse 🙂
               </p>
             </div>
           </div>
@@ -110,8 +110,8 @@ const About = () => {
           <Card
             mainTitle="Software Engineer"
             subTitle={
-              "July 2017 - currently " +
-              howLongInCurrentJob(new Date(2017, 7, 17))
+              "July 2017 - currently (" +
+              howLongInCurrentJob(new Date(2017, 7, 17)) +")"
             }
             detailsButton="projects"
             onClick={() => setReplaceImage(!replaceImage)}
@@ -127,7 +127,7 @@ const About = () => {
           >
             <Project
               title={"Telco project"}
-              duration={"2.5 year"}
+              duration={howLongInCurrentJob(new Date(2019, 1, 1))}
               keywords={[
                 "Java",
                 "Ansible",
@@ -135,9 +135,14 @@ const About = () => {
                 "Docker",
                 "React",
                 "Spring Boot",
+                "Spring JPA",
+                "Spring Security",
+                "Spring Cloud",
+                "GitHub Actions",
                 "Gradle",
                 "Maven",
                 "Linux",
+                "Rhino TAS",
                 "Bamboo",
                 "Jenkins",
                 "SVN",
@@ -158,22 +163,22 @@ const About = () => {
                 in Java. The project was very extensive and I had the chance to
                 work on things in many areas (frontend, backend, devops).
               </p>
-              <p>
-                For a large part of the time, I was developing an application
-                for conducting functional tests using the SIP and Diameter
-                protocols (something like{" "}
-                <a href="https://gettaurus.org/">Taurus</a>/
-                <a href="https://www.postman.com/">Postman</a>) and it was used
-                by other dev-teams as well.
-              </p>
-              <p>In addition, I also dealt with:</p>
+
+              <p>The things I dealt with:</p>
               <ul>
-                <li>configuration of CI/CD pipelines,</li>
-                <li>preparation of virtual machines for developers,</li>
-                <li>creation of Gradle plugins and Docker containers,</li>
-                <li>configuration of project build,</li>
+                <li>development of a Java application for conducting functional tests using the SIP and Diameter protocols
+                  (something like{" "}
+                  <a href="https://gettaurus.org/">Taurus</a>/
+                  <a href="https://www.postman.com/">Postman</a>). It is used internally by all teams as the main tool for testing,</li>
+                <li>development of a provisioning system consisting of multiple microservices. It uses discovery service (registry)
+                  and authorization mechanisms to access the database,</li>
+                <li>development of a framework for IMS-based Value-Added-Services and multiple services based on it</li>
+                <li>implementation of CI/CD workflows on GitHub and BitBucket,</li>
                 <li>implementation of a dashboard React application,</li>
-                <li>documentation configuration and writing.</li>
+                <li>creation of automatically generated documentation,</li>
+                <li>preparation of automated virtual machines for developers,</li>
+                <li>creation of custom Gradle plugins and Docker containers,</li>
+                <li>configuration of project build.</li>
               </ul>
 
               <p>
@@ -264,7 +269,7 @@ const About = () => {
         <div className="flex flex-col w-full">
           <h2 className="text-center">Education</h2>
           <Card
-            mainTitle="Master of Computer Science"
+            mainTitle="Bachelor and Master of Computer Science<br>Wroclaw University of Science and Technology"
             subTitle={"October 2015 - June 2020 (5 years)"}
             detailsButton="details"
             onClick={() => setReplaceImage(!replaceImage)}
