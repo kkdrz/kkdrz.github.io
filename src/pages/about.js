@@ -142,6 +142,7 @@ const About = () => {
                 "Spring JPA",
                 "Spring Security",
                 "Spring Cloud",
+                "Eureka",
                 "GitHub Actions",
                 "Gradle",
                 "Maven",
@@ -174,11 +175,10 @@ const About = () => {
                   (something like{" "}
                   <a href="https://gettaurus.org/">Taurus</a>/
                   <a href="https://www.postman.com/">Postman</a>). It is used internally by all teams as the main tool for testing,</li>
-                <li>development of a provisioning system consisting of multiple microservices. It uses discovery service (registry)
-                  and authorization mechanisms to access the database,</li>
-                <li>development of a framework for IMS-based Value-Added-Services and multiple services based on it</li>
-                <li>implementation of CI/CD workflows on GitHub and BitBucket,</li>
-                <li>implementation of a dashboard React application,</li>
+                <li>development of a provisioning system consisting of multiple microservices. Gateway, Eureka registry, Authorization, REST API services...</li>
+                <li>development of a Java framework for IMS-based Value-Added-Services and creation of multiple services based on it,</li>
+                <li>implementation of CI/CD workflows on GitHub/Bamboo/Jenkins,</li>
+                <li>implementation of a dashboard React application, collecting data from multiple sources in one place.</li>
                 <li>creation of automatically generated documentation,</li>
                 <li>preparation of automated virtual machines for developers,</li>
                 <li>creation of custom Gradle plugins and Docker containers,</li>
