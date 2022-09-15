@@ -187,7 +187,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingIds: ["UA-184638286-1"],
+        trackingIds: [
+            'G-ZXMPLSG5ND',
+        ],
       },
     },
     `gatsby-plugin-react-helmet`,

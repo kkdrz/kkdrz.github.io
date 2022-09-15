@@ -53,6 +53,11 @@ const About = () => {
     return "just started"
   }
 
+  const handleResumeDownload = () => {
+    setReplaceImage(!replaceImage)
+    typeof window.gtag !== "undefined" && window.gtag('event', 'resume_download', {})
+  }
+
   return (
     <Layout>
       <SEO title="About me" />
@@ -105,7 +110,7 @@ const About = () => {
         </div>
         <div className="flex flex-col w-full">
           <a href="/Konrad_Drozd_resume_public.pdf" className="text-center"
-             onClick={() => setReplaceImage(!replaceImage)} download><h4>Download my resume!</h4></a>
+             onClick={handleResumeDownload} download><h4>Download my resume!</h4></a>
         </div>
 
         <div className="flex flex-col w-full">
