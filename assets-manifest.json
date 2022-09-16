@@ -21,8 +21,8 @@
   "component---src-pages-404-js.js": "component---src-pages-404-js-a9d9287e179050d6907c.js",
   "component---src-pages-about-js-808ddbe4ca5dbfcc3ae7.js.map": "component---src-pages-about-js-808ddbe4ca5dbfcc3ae7.js.map",
   "component---src-pages-about-js.js": "component---src-pages-about-js-808ddbe4ca5dbfcc3ae7.js",
-  "component---src-pages-admin-js-81f81b96a9c64d3ede08.js.map": "component---src-pages-admin-js-81f81b96a9c64d3ede08.js.map",
-  "component---src-pages-admin-js.js": "component---src-pages-admin-js-81f81b96a9c64d3ede08.js",
+  "component---src-pages-admin-js-1cefcff30ec00a8fed3d.js.map": "component---src-pages-admin-js-1cefcff30ec00a8fed3d.js.map",
+  "component---src-pages-admin-js.js": "component---src-pages-admin-js-1cefcff30ec00a8fed3d.js",
   "component---src-pages-blog-js-20f2ab6c0b97b9b337ca.js.map": "component---src-pages-blog-js-20f2ab6c0b97b9b337ca.js.map",
   "component---src-pages-blog-js.js": "component---src-pages-blog-js-20f2ab6c0b97b9b337ca.js",
   "component---src-pages-index-js-53d1f35a094a3504b1b0.js.map": "component---src-pages-index-js-53d1f35a094a3504b1b0.js.map",
@@ -89,6 +89,6 @@
   "static/montserrat-latin-900italic.woff": "static/montserrat-latin-900italic-efcaa0f6a82ee0640b83a0916e6e8d68.woff",
   "static/montserrat-latin-900italic.woff2": "static/montserrat-latin-900italic-4454c775e48152c1a72510ceed3603e2.woff2",
   "styles.css": "styles.6833c3e6f7867b918a7c.css",
-  "webpack-runtime-06de33ded8389a6fdd43.js.map": "webpack-runtime-06de33ded8389a6fdd43.js.map",
-  "webpack-runtime.js": "webpack-runtime-06de33ded8389a6fdd43.js"
+  "webpack-runtime-80d80dc87816f4ea9e73.js.map": "webpack-runtime-80d80dc87816f4ea9e73.js.map",
+  "webpack-runtime.js": "webpack-runtime-80d80dc87816f4ea9e73.js"
 }
