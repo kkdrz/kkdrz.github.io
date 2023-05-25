@@ -93,7 +93,6 @@ module.exports = {
             },
           },
           `gatsby-remark-autolink-headers`,
-          `gatsby-plugin-fontawesome-css`,
           `gatsby-remark-external-links`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
@@ -143,29 +142,26 @@ module.exports = {
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
+                  custom_elements: [{"content:encoded": node.html}],
                 })
               })
             },
             query: `
-              {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  nodes {
-                    excerpt
-                    html
-                    fields {
-                      slug
-                    }
-                    frontmatter {
-                      title
-                      date
-                    }
+            {
+              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+                nodes {
+                  excerpt
+                  html
+                  fields {
+                    slug
+                  }
+                  frontmatter {
+                    title
+                    date
                   }
                 }
               }
-            `,
+            }`,
             output: "/rss.xml",
             title: "Konrad Drozd Blog RSS Feed"
           },
