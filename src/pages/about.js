@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { StaticImage } from "gatsby-plugin-image"
+import React, {useState} from "react"
+import {StaticImage} from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -8,7 +8,7 @@ import Project from "../components/about/project"
 
 import myPhoto from "../images/konrad_drozd.jpg"
 import myPhotoSmile from "../images/konrad_drozd_smile.jpg"
-import { graphql, useStaticQuery } from "gatsby"
+import {graphql, useStaticQuery} from "gatsby"
 
 const About = () => {
   const {
@@ -108,35 +108,62 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full">
+        {/*<div className="flex flex-col w-full">
           <a href="/Konrad_Drozd_resume_public.pdf" className="text-center"
              onClick={handleResumeDownload} download><h4>Download my resume!</h4></a>
-        </div>
+        </div>*/}
 
         <div className="flex flex-col w-full">
           <h2 className="text-center">Experience</h2>
 
           <Card
-            mainTitle="Software Engineer"
-            subTitle={
-              "July 2017 - currently (" +
-              howLongInCurrentJob(new Date(2017, 7, 17)) +")"
-            }
-            detailsButton="projects"
-            onClick={() => setReplaceImage(!replaceImage)}
-            image={
-              <StaticImage
-                alt="TietoEvry"
-                className="w-24"
-                imgClassName="object-contain"
-                imgStyle={{ objectFit: "contain" }}
-                src={"../images/tietoevry.png"}
-              ></StaticImage>
-            }
+              mainTitle="Software Engineer"
+              subTitle={
+                  "January 2023 - currently (" +
+                  howLongInCurrentJob(new Date(2023, 1, 1)) + ")"
+              }
+              detailsButton="projects"
+              onClick={() => setReplaceImage(!replaceImage)}
+              image={
+                <StaticImage
+                    alt="Ocado"
+                    className="w-24"
+                    imgClassName="object-contain"
+                    imgStyle={{objectFit: "contain"}}
+                    src={"../images/ocado.jpeg"}
+                ></StaticImage>
+              }
           >
             <Project
-              title={"Telco project"}
-              duration={howLongInCurrentJob(new Date(2019, 1, 1))}
+                title={"Fascinating Project"}
+                duration={howLongInCurrentJob(new Date(2023, 1, 1))}
+                keywords={[]}
+            >
+              <p>
+                I'll complete this section someday ;)
+              </p>
+            </Project>
+          </Card>
+          <Card
+              mainTitle="Software Engineer"
+              subTitle={
+                "July 2017 - December 2022 (5 years 6 months)"
+              }
+              detailsButton="projects"
+              onClick={() => setReplaceImage(!replaceImage)}
+              image={
+                <StaticImage
+                    alt="TietoEvry"
+                    className="w-24"
+                    imgClassName="object-contain"
+                    imgStyle={{objectFit: "contain"}}
+                    src={"../images/tietoevry.png"}
+                ></StaticImage>
+              }
+          >
+            <Project
+                title={"Telco project"}
+                duration={howLongInCurrentJob(new Date(2019, 1, 1))}
               keywords={[
                 "Java",
                 "Ansible",

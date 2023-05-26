@@ -18,7 +18,7 @@ const Card = ({
     <div
       onClick={() => onClick()}
       onKeyDown={() => onClick()}
-      className="flex flex-col p-8 shadow-md2"
+      className="flex flex-col p-8 shadow-md2 mb-2"
     >
       <div className="flex flex-row items-center max-h-24">
         {image}
