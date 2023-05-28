@@ -60,7 +60,7 @@ const BlogPostTemplate = ({ data, location }) => {
               <BlogPost
                 title={previous.frontmatter.title}
                 date={previous.frontmatter.date}
-                excerpt={previous.frontmatter.description || post.excerpt}
+                excerpt={previous.frontmatter.description || previous.excerpt}
                 slug={previous.fields.slug}
                 featuredImage={getImage(previous.frontmatter.featuredImage)}
               />
