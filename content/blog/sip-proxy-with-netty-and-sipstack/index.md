@@ -495,8 +495,8 @@ sipp 127.0.0.1:5060 -sf bob.xml -t t1 -m 1 -key alices_port ${ALICES_PORT} -trac
 
 Short description of `sipp` parameters:
 
-||
-|-----|-----|
+| | |
+| ----- | ----- |
 |`-sf`|scenario file|
 |`-t t1`| use TCP|
 |`-m1`| perform 1 call|
